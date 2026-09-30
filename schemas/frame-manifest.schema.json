@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://figma-web.local/schemas/frame-manifest.schema.json",
+  "title": "FrameManifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "fileKey", "frames"],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "fileKey": { "type": "string", "minLength": 1 },
+    "frames": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "name", "included", "width", "height"],
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "name": { "type": "string" },
+          "included": { "type": "boolean" },
+          "width": { "type": "number" },
+          "height": { "type": "number" }
+        }
+      }
+    },
+    "assetsManifestPath": { "type": "string" }
+  }
+}

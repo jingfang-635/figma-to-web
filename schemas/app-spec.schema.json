@@ -1,0 +1,136 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://figma-web.local/schemas/app-spec.schema.json",
+  "title": "AppSpec",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "project",
+    "stack",
+    "auth",
+    "output",
+    "screens",
+    "entities",
+    "needsReview"
+  ],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "project": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["slug"],
+      "properties": {
+        "slug": { "type": "string", "minLength": 1 },
+        "name": { "type": "string" }
+      }
+    },
+    "stack": { "$ref": "decision.schema.json#/properties/stack" },
+    "auth": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mode"],
+      "properties": {
+        "mode": { "enum": ["jwt", "none"] },
+        "storageKey": { "type": "string", "minLength": 1 }
+      }
+    },
+    "output": { "$ref": "decision.schema.json#/properties/output" },
+    "seedAdmin": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["username"],
+      "properties": {
+        "username": { "type": "string", "minLength": 1 },
+        "passwordEnvKey": { "type": "string", "minLength": 1 }
+      }
+    },
+    "screens": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "name", "route", "type", "frameId"],
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "name": { "type": "string", "minLength": 1 },
+          "route": { "type": "string", "minLength": 1 },
+          "type": {
+            "enum": [
+              "list",
+              "form",
+              "detail",
+              "dashboard",
+              "login",
+              "modal",
+              "chrome",
+              "other"
+            ]
+          },
+          "frameId": { "type": "string", "minLength": 1 },
+          "entityId": { "type": "string" },
+          "template": { "type": "string" }
+        }
+      }
+    },
+    "entities": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "name", "fields"],
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "name": { "type": "string", "minLength": 1 },
+          "fields": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["id", "name", "type"],
+              "properties": {
+                "id": { "type": "string", "minLength": 1 },
+                "name": { "type": "string", "minLength": 1 },
+                "type": { "type": "string", "minLength": 1 },
+                "required": { "type": "boolean" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "navigation": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["screenId", "label"],
+            "properties": {
+              "screenId": { "type": "string" },
+              "label": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "stats": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "op", "entityId"],
+        "properties": {
+          "id": { "type": "string" },
+          "op": { "enum": ["count", "sum", "avg"] },
+          "entityId": { "type": "string" },
+          "fieldId": { "type": "string" }
+        }
+      }
+    },
+    "needsReview": { "type": "boolean" }
+  }
+}

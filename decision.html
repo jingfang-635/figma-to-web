@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pipeline Decision</title>
+  <style>
+    :root {
+      --bg: #f3f5f8;
+      --panel: #ffffff;
+      --ink: #15202b;
+      --muted: #5b6b7c;
+      --line: #d8dee6;
+      --accent: #0f6e56;
+      --accent-ink: #ffffff;
+      --warn: #9a3412;
+      --ok: #166534;
+      --chip: #eef2f6;
+      --chip-on: #0f6e56;
+      --chip-dis: #e5e7eb;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      background:
+        radial-gradient(900px 420px at 10% -10%, #d9efe7 0%, transparent 55%),
+        radial-gradient(800px 400px at 100% 0%, #e7eef8 0%, transparent 50%),
+        var(--bg);
+      color: var(--ink);
+      min-height: 100vh;
+    }
+    .wrap { max-width: 920px; margin: 0 auto; padding: 28px 20px 64px; }
+    h1 { margin: 0 0 6px; font-size: 1.55rem; letter-spacing: -0.02em; }
+    .sub { margin: 0 0 22px; color: var(--muted); font-size: 0.95rem; }
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 18px 18px 14px;
+      margin-bottom: 14px;
+      box-shadow: 0 8px 24px rgba(21, 32, 43, 0.04);
+    }
+    .panel h2 { margin: 0 0 12px; font-size: 0.95rem; font-weight: 650; }
+    label.field, .field {
+      display: block;
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+    input[type="text"] {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 10px 12px;
+      font-size: 0.95rem;
+      outline: none;
+      background: #fbfcfd;
+    }
+    input[type="text"]:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(15, 110, 86, 0.12);
+    }
+    .row { display: grid; gap: 12px; }
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    button.chip {
+      border: 1px solid var(--line);
+      background: var(--chip);
+      color: var(--ink);
+      border-radius: 999px;
+      padding: 8px 14px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: 0.12s ease;
+    }
+    button.chip:hover:not(:disabled) { border-color: var(--accent); }
+    button.chip.on {
+      background: var(--chip-on);
+      border-color: var(--chip-on);
+      color: var(--accent-ink);
+    }
+    button.chip:disabled {
+      background: var(--chip-dis);
+      color: #9aa5b1;
+      cursor: not-allowed;
+      opacity: 0.75;
+    }
+    .hint { margin-top: 8px; font-size: 0.8rem; color: var(--muted); }
+    .status { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+    .pill {
+      font-size: 0.78rem;
+      border-radius: 999px;
+      padding: 4px 10px;
+      border: 1px solid var(--line);
+      background: #f8fafc;
+    }
+    .pill.ok { color: var(--ok); border-color: #bbf7d0; background: #f0fdf4; }
+    .pill.bad { color: var(--warn); border-color: #fed7aa; background: #fff7ed; }
+    .footer {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+    button.primary {
+      border: 0;
+      background: var(--accent);
+      color: #fff;
+      border-radius: 10px;
+      padding: 12px 18px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    button.primary:disabled { opacity: 0.45; cursor: not-allowed; }
+    #msg { min-height: 1.2em; font-size: 0.9rem; }
+    #msg.err { color: var(--warn); }
+    #msg.ok { color: var(--ok); }
+    .stack-id { font-family: ui-monospace, Consolas, monospace; font-weight: 700; }
+    dialog {
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 0;
+      max-width: 520px;
+      width: calc(100% - 32px);
+      box-shadow: 0 24px 64px rgba(0,0,0,.18);
+    }
+    dialog::backdrop { background: rgba(15, 23, 42, 0.45); }
+    .dlg { padding: 20px 22px 18px; }
+    .dlg h3 { margin: 0 0 8px; }
+    .dlg p { margin: 0 0 14px; color: var(--muted); line-height: 1.45; }
+    .dlg .actions { display: flex; gap: 8px; justify-content: flex-end; }
+    .dlg button {
+      border-radius: 8px;
+      padding: 8px 12px;
+      border: 1px solid var(--line);
+      background: #fff;
+      cursor: pointer;
+    }
+    .dlg button.ok {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>开工决策</h1>
+    <p class="sub">在一页内点选全部决策项。非法组合会灰显禁用，不会静默降级。</p>
+
+    <section class="panel">
+      <h2>1. Figma 来源</h2>
+      <label class="field" for="figma">URL 或 fileKey</label>
+      <input id="figma" type="text" placeholder="https://www.figma.com/design/… 或 fileKey" />
+    </section>
+
+    <section class="panel">
+      <h2>2. 技术栈</h2>
+      <div class="row">
+        <div><div class="field">language</div><div class="chips" id="language"></div></div>
+        <div><div class="field">frontend</div><div class="chips" id="frontend"></div></div>
+        <div><div class="field">backend</div><div class="chips" id="backend"></div></div>
+        <div><div class="field">database</div><div class="chips" id="database"></div></div>
+        <div><div class="field">orm</div><div class="chips" id="orm"></div></div>
+        <div><div class="field">ui</div><div class="chips" id="ui"></div></div>
+      </div>
+      <div class="hint">当前栈 ID：<span class="stack-id" id="stackId">—</span></div>
+    </section>
+
+    <section class="panel">
+      <h2>3. 鉴权</h2>
+      <div class="chips" id="authMode"></div>
+      <div class="hint">jwt：SPEC 阶段再补 seedAdmin；none：无强制登录拦截</div>
+    </section>
+
+    <section class="panel">
+      <h2>4. 产出路径</h2>
+      <div class="chips" id="outputMode"></div>
+      <div class="hint">apps → apps/web + apps/api；output-run → output/&lt;runId&gt;/…</div>
+    </section>
+
+    <section class="panel">
+      <h2>5. 环境键（只检查是否存在）</h2>
+      <div class="status" id="envStatus"></div>
+    </section>
+
+    <div class="footer">
+      <div id="msg"></div>
+      <button class="primary" id="submit" disabled>写入 decision 并继续</button>
+    </div>
+  </div>
+
+  <dialog id="dlg">
+    <div class="dlg">
+      <h3 id="dlgTitle">完成</h3>
+      <p id="dlgBody"></p>
+      <div class="actions"><button class="ok" id="dlgClose">好的</button></div>
+    </div>
+  </dialog>
+
+  <script>
+    const STACK_DIMS = ["language", "frontend", "backend", "database", "orm", "ui"];
+    const state = {
+      language: null,
+      frontend: null,
+      backend: null,
+      database: null,
+      orm: null,
+      ui: null,
+      authMode: null,
+      outputMode: null,
+    };
+    let matrix = null;
+    const $ = (id) => document.getElementById(id);
+
+    function parseFileKey(input) {
+      const s = (input || "").trim();
+      const m = s.match(/figma\.com\/(?:design|file)\/([A-Za-z0-9]+)/);
+      if (m) return m[1];
+      if (/^[A-Za-z0-9]{10,}$/.test(s)) return s;
+      return null;
+    }
+
+    function rowsCompatible(ignoreDim) {
+      return matrix.rows.filter((r) => {
+        for (const d of ["language", "frontend", "backend", "database", "orm"]) {
+          if (d === ignoreDim) continue;
+          if (state[d] && r[d] !== state[d]) return false;
+        }
+        if (ignoreDim !== "ui" && state.ui && !r.ui.includes(state.ui)) return false;
+        return true;
+      });
+    }
+
+    function allowed(dim) {
+      // auth / output are independent of stack matrix rows
+      if (dim === "authMode") return matrix.enums.authMode;
+      if (dim === "outputMode") return matrix.enums.outputMode;
+      if (dim === "language") return matrix.enums.language;
+      const rows = rowsCompatible(dim);
+      if (dim === "ui") {
+        const set = new Set();
+        for (const r of rows) for (const u of r.ui) set.add(u);
+        return [...set];
+      }
+      return [...new Set(rows.map((r) => r[dim]))];
+    }
+
+    function currentRow() {
+      if (STACK_DIMS.some((d) => !state[d])) return null;
+      return (
+        matrix.rows.find(
+          (r) =>
+            r.language === state.language &&
+            r.frontend === state.frontend &&
+            r.backend === state.backend &&
+            r.database === state.database &&
+            r.orm === state.orm &&
+            r.ui.includes(state.ui)
+        ) || null
+      );
+    }
+
+    function clearAfter(dim) {
+      const i = STACK_DIMS.indexOf(dim);
+      if (i < 0) return;
+      for (let j = i + 1; j < STACK_DIMS.length; j++) state[STACK_DIMS[j]] = null;
+    }
+
+    function renderGroup(dim, allEnums) {
+      const enabled = new Set(allowed(dim));
+      const el = $(dim);
+      el.innerHTML = "";
+      for (const v of allEnums) {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "chip" + (state[dim] === v ? " on" : "");
+        btn.textContent = v;
+        btn.disabled = !enabled.has(v);
+        btn.addEventListener("click", () => {
+          if (!enabled.has(v)) return;
+          if (STACK_DIMS.includes(dim)) clearAfter(dim);
+          state[dim] = v;
+          // drop ui if no longer allowed
+          if (state.ui && !allowed("ui").includes(state.ui)) state.ui = null;
+          if (state.orm && !allowed("orm").includes(state.orm)) {
+            state.orm = null;
+            state.ui = null;
+          }
+          renderAll();
+        });
+        el.appendChild(btn);
+      }
+    }
+
+    function renderAll() {
+      renderGroup("language", matrix.enums.language);
+      renderGroup("frontend", matrix.enums.frontend);
+      renderGroup("backend", matrix.enums.backend);
+      renderGroup("database", matrix.enums.database);
+      renderGroup("orm", matrix.enums.orm);
+      renderGroup("ui", matrix.enums.ui);
+      renderGroup("authMode", matrix.enums.authMode);
+      renderGroup("outputMode", matrix.enums.outputMode);
+      const row = currentRow();
+      $("stackId").textContent = row ? row.id : "（未齐或不合法）";
+      updateSubmit();
+    }
+
+    function updateSubmit() {
+      const ok =
+        !!parseFileKey($("figma").value) &&
+        !!currentRow() &&
+        !!state.authMode &&
+        !!state.outputMode;
+      $("submit").disabled = !ok;
+    }
+
+    async function loadEnv() {
+      const data = await (await fetch("/api/env-check")).json();
+      const box = $("envStatus");
+      box.innerHTML = "";
+      for (const [k, v] of Object.entries(data.keys || {})) {
+        const pill = document.createElement("span");
+        pill.className = "pill " + (v ? "ok" : "bad");
+        pill.textContent = k + (v ? " ✓" : " 缺失");
+        box.appendChild(pill);
+      }
+    }
+
+    async function loadPrefill() {
+      const data = await (await fetch("/api/prefill")).json();
+      const d = data.decision;
+      if (!d) return;
+      const key = d.figma?.fileKey;
+      if (key && key !== "REPLACE_WITH_FIGMA_FILE_KEY") {
+        $("figma").value = d.figma.sourceUrl || key;
+      }
+      // ignore scaffold stack A / auth none placeholders — only apply if fileKey real AND user-complete later
+    }
+
+    $("figma").addEventListener("input", updateSubmit);
+
+    $("submit").addEventListener("click", async () => {
+      $("msg").textContent = "提交中…";
+      $("msg").className = "";
+      const res = await fetch("/api/decision", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          figmaInput: $("figma").value,
+          language: state.language,
+          frontend: state.frontend,
+          backend: state.backend,
+          database: state.database,
+          orm: state.orm,
+          ui: state.ui,
+          authMode: state.authMode,
+          outputMode: state.outputMode,
+        }),
+      });
+      const data = await res.json();
+      if (!data.ok) {
+        $("msg").textContent = data.error || "提交失败";
+        $("msg").className = "err";
+        return;
+      }
+      $("msg").textContent = "已写入 artifacts/decision/decision.json";
+      $("msg").className = "ok";
+      $("dlgTitle").textContent = data.decisionComplete ? "DECISION 完成" : "已保存但仍缺 env";
+      $("dlgBody").textContent = data.decisionComplete
+        ? `栈 ${data.decision.stack.id} 已落盘，状态进入 ${data.nextPhase}。请回到对话继续 INGEST。`
+        : "决策已写盘，但 INGEST 所需 env 键仍缺失，阶段仍为 DECISION。";
+      $("dlg").showModal();
+    });
+
+    $("dlgClose").addEventListener("click", () => $("dlg").close());
+
+    (async function init() {
+      matrix = await (await fetch("/api/matrix")).json();
+      await loadPrefill();
+      if (!parseFileKey($("figma").value)) {
+        $("figma").value =
+          "https://www.figma.com/design/KLYzRbufrish4gmY4jpUS0/";
+      }
+      // resume chat progress (legal prefix only; orm/ui left for click)
+      state.language = "java";
+      state.frontend = "react-vite";
+      state.backend = "spring-boot";
+      state.database = "mysql";
+      await loadEnv();
+      renderAll();
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 1,
+  "rows": [
+    {
+      "id": "A",
+      "language": "node",
+      "frontend": "react-vite",
+      "backend": "nestjs",
+      "database": "postgresql",
+      "orm": "prisma",
+      "ui": ["antd", "mui", "mantine"]
+    },
+    {
+      "id": "A2",
+      "language": "node",
+      "frontend": "react-vite",
+      "backend": "express",
+      "database": "postgresql",
+      "orm": "prisma",
+      "ui": ["antd", "mui", "mantine"]
+    },
+    {
+      "id": "B",
+      "language": "node",
+      "frontend": "vue-vite",
+      "backend": "nestjs",
+      "database": "postgresql",
+      "orm": "prisma",
+      "ui": ["element-plus", "ant-design-vue"]
+    },
+    {
+      "id": "C",
+      "language": "java",
+      "frontend": "react-vite",
+      "backend": "spring-boot",
+      "database": "mysql",
+      "orm": "jpa",
+      "ui": ["antd", "mui", "mantine"]
+    },
+    {
+      "id": "D",
+      "language": "java",
+      "frontend": "vue-vite",
+      "backend": "spring-boot",
+      "database": "mysql",
+      "orm": "mybatis",
+      "ui": ["element-plus", "ant-design-vue"]
+    }
+  ],
+  "enums": {
+    "language": ["node", "java"],
+    "frontend": ["react-vite", "vue-vite"],
+    "backend": ["nestjs", "express", "spring-boot"],
+    "database": ["postgresql", "mysql"],
+    "orm": ["prisma", "jpa", "mybatis"],
+    "ui": ["antd", "mui", "mantine", "element-plus", "ant-design-vue"],
+    "authMode": ["jwt", "none"],
+    "outputMode": ["apps", "output-run"]
+  },
+  "linkages": {
+    "node": {
+      "backend": ["nestjs", "express"],
+      "database": ["postgresql"],
+      "orm": ["prisma"]
+    },
+    "java": {
+      "backend": ["spring-boot"],
+      "database": ["mysql"],
+      "orm": ["jpa", "mybatis"]
+    },
+    "react-vite": {
+      "ui": ["antd", "mui", "mantine"]
+    },
+    "vue-vite": {
+      "ui": ["element-plus", "ant-design-vue"]
+    }
+  }
+}

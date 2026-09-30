@@ -1,0 +1,84 @@
+{
+  "schemaVersion": 1,
+  "fileKey": "KLYzRbufrish4gmY4jpUS0",
+  "frames": [
+    {
+      "id": "280:2024",
+      "name": "sidebar",
+      "included": false,
+      "width": 1440,
+      "height": 1068
+    },
+    {
+      "id": "157:2",
+      "name": "首页",
+      "included": true,
+      "width": 1440,
+      "height": 1068
+    },
+    {
+      "id": "157:203",
+      "name": "机构信息",
+      "included": true,
+      "width": 1440,
+      "height": 1068
+    },
+    {
+      "id": "157:312",
+      "name": "科室管理",
+      "included": true,
+      "width": 1440,
+      "height": 1068
+    },
+    {
+      "id": "157:523",
+      "name": "医生管理",
+      "included": true,
+      "width": 1440,
+      "height": 1068
+    },
+    {
+      "id": "157:756",
+      "name": "排班管理",
+      "included": true,
+      "width": 1440,
+      "height": 1068
+    },
+    {
+      "id": "157:4177",
+      "name": "新增科室弹窗",
+      "included": true,
+      "width": 520,
+      "height": 493
+    },
+    {
+      "id": "157:4212",
+      "name": "新增医生弹窗",
+      "included": true,
+      "width": 520,
+      "height": 717
+    },
+    {
+      "id": "176:4",
+      "name": "新增排班弹窗",
+      "included": true,
+      "width": 520,
+      "height": 489
+    },
+    {
+      "id": "176:46",
+      "name": "批量排班弹窗",
+      "included": true,
+      "width": 520,
+      "height": 739
+    },
+    {
+      "id": "280:1700",
+      "name": "sidebar1",
+      "included": false,
+      "width": 220,
+      "height": 1068
+    }
+  ],
+  "assetsManifestPath": "artifacts/figma/assets-manifest.json"
+}

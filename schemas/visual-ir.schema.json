@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://figma-web.local/schemas/visual-ir.schema.json",
+  "title": "VisualIR",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "tokens", "screens"],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "tokens": { "type": "object" },
+    "chrome": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "sidebar": { "type": "object" },
+        "header": { "type": "object" }
+      }
+    },
+    "screens": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["screenId"],
+        "properties": {
+          "screenId": { "type": "string" },
+          "template": { "type": "string" }
+        }
+      }
+    },
+    "modals": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["screenId"],
+        "properties": {
+          "screenId": { "type": "string" },
+          "triggerScreenId": { "type": "string" }
+        }
+      }
+    }
+  }
+}

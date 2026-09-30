@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://figma-web.local/schemas/layout-ir.schema.json",
+  "title": "LayoutIR",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "screenId",
+    "frameId",
+    "bounds",
+    "tree",
+    "texts",
+    "icons"
+  ],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "screenId": { "type": "string", "minLength": 1 },
+    "frameId": { "type": "string", "minLength": 1 },
+    "bounds": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["x", "y", "width", "height"],
+      "properties": {
+        "x": { "type": "number" },
+        "y": { "type": "number" },
+        "width": { "type": "number" },
+        "height": { "type": "number" }
+      }
+    },
+    "tree": { "type": "object" },
+    "texts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["nodeId", "characters", "bounds"],
+        "properties": {
+          "nodeId": { "type": "string" },
+          "characters": { "type": "string" },
+          "style": { "type": "object" },
+          "bounds": { "type": "object" }
+        }
+      }
+    },
+    "icons": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["nodeId", "exportable"],
+        "properties": {
+          "nodeId": { "type": "string" },
+          "exportable": { "type": "boolean" }
+        }
+      }
+    },
+    "controls": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["nodeId", "role", "bounds"],
+        "properties": {
+          "nodeId": { "type": "string" },
+          "role": { "type": "string" },
+          "bounds": { "type": "object" }
+        }
+      }
+    }
+  }
+}

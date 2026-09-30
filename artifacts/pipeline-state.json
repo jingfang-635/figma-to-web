@@ -1,0 +1,69 @@
+{
+  "schemaVersion": 1,
+  "phase": "SPEC",
+  "round": 0,
+  "maxRounds": 5,
+  "blocked": false,
+  "blockReason": null,
+  "lastError": null,
+  "history": [
+    {
+      "at": "2026-09-30T09:25:15.105Z",
+      "event": "decision-ui-submit",
+      "stackId": "D"
+    },
+    {
+      "at": "2026-09-30T09:25:20.399Z",
+      "event": "decision-ui-submit",
+      "stackId": "D"
+    },
+    {
+      "at": "2026-09-30T09:25:29.104Z",
+      "event": "decision-ui-submit",
+      "stackId": "D"
+    },
+    {
+      "at": "2026-09-30T09:25:36.591Z",
+      "event": "decision-ui-submit",
+      "stackId": "D"
+    },
+    {
+      "at": "2026-09-30T09:34:00.000Z",
+      "event": "stack-reselect-requested"
+    },
+    {
+      "at": "2026-09-30T09:37:00.000Z",
+      "event": "stack-reselect-written",
+      "stackId": "C"
+    },
+    {
+      "at": "2026-09-30T09:37:30.000Z",
+      "event": "decision-confirmed",
+      "stackId": "C"
+    },
+    {
+      "at": "2026-09-30T09:41:30.000Z",
+      "event": "ingest-frames-confirmed",
+      "includedCount": 9,
+      "excluded": ["280:2024", "280:1700"]
+    }
+  ],
+  "completed": {
+    "DECISION": true,
+    "INGEST": true,
+    "SPEC": false,
+    "IR": false,
+    "CODEGEN": false,
+    "FIDELITY": false,
+    "GATE": false,
+    "DONE": false
+  },
+  "artifacts": {
+    "decision": "artifacts/decision/decision.json",
+    "appSpec": "artifacts/app-spec/app-spec.json",
+    "frameManifest": "artifacts/figma/frame-manifest.json",
+    "layoutIrDir": "artifacts/ir/layout",
+    "visualIr": "artifacts/ir/visual-ir.json",
+    "gateReport": null
+  }
+}

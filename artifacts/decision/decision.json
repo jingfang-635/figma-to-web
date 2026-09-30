@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "figma": {
+    "fileKey": "KLYzRbufrish4gmY4jpUS0",
+    "sourceUrl": "https://www.figma.com/design/KLYzRbufrish4gmY4jpUS0/"
+  },
+  "stack": {
+    "id": "C",
+    "language": "java",
+    "frontend": "react-vite",
+    "backend": "spring-boot",
+    "database": "mysql",
+    "orm": "jpa",
+    "ui": "antd"
+  },
+  "auth": {
+    "mode": "jwt"
+  },
+  "output": {
+    "mode": "apps",
+    "root": ".",
+    "webDir": "apps/web",
+    "apiDir": "apps/api"
+  },
+  "envCheck": {
+    "ok": true,
+    "missingKeys": []
+  }
+}

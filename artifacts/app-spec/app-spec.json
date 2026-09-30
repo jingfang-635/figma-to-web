@@ -1,0 +1,192 @@
+{
+  "schemaVersion": 1,
+  "project": {
+    "slug": "yangguang-yiliao",
+    "name": "阳光医疗-调优版"
+  },
+  "stack": {
+    "id": "C",
+    "language": "java",
+    "frontend": "react-vite",
+    "backend": "spring-boot",
+    "database": "mysql",
+    "orm": "jpa",
+    "ui": "antd"
+  },
+  "auth": {
+    "mode": "jwt",
+    "storageKey": "yangguang-yiliao.auth.token"
+  },
+  "output": {
+    "mode": "apps",
+    "root": ".",
+    "webDir": "apps/web",
+    "apiDir": "apps/api"
+  },
+  "seedAdmin": {
+    "username": "admin",
+    "passwordEnvKey": "GATE_PASS"
+  },
+  "screens": [
+    {
+      "id": "home",
+      "name": "首页",
+      "route": "/",
+      "type": "dashboard",
+      "frameId": "157:2",
+      "template": "dashboard-stats"
+    },
+    {
+      "id": "organization",
+      "name": "机构信息",
+      "route": "/organization",
+      "type": "form",
+      "frameId": "157:203",
+      "entityId": "organization",
+      "template": "org-form"
+    },
+    {
+      "id": "departments",
+      "name": "科室管理",
+      "route": "/departments",
+      "type": "list",
+      "frameId": "157:312",
+      "entityId": "department",
+      "template": "crud-list"
+    },
+    {
+      "id": "doctors",
+      "name": "医生管理",
+      "route": "/doctors",
+      "type": "list",
+      "frameId": "157:523",
+      "entityId": "doctor",
+      "template": "crud-list"
+    },
+    {
+      "id": "schedules",
+      "name": "排班管理",
+      "route": "/schedules",
+      "type": "list",
+      "frameId": "157:756",
+      "entityId": "schedule",
+      "template": "schedule-calendar"
+    },
+    {
+      "id": "department-create",
+      "name": "新增科室弹窗",
+      "route": "/departments/new",
+      "type": "modal",
+      "frameId": "157:4177",
+      "entityId": "department",
+      "template": "entity-form-modal"
+    },
+    {
+      "id": "doctor-create",
+      "name": "新增医生弹窗",
+      "route": "/doctors/new",
+      "type": "modal",
+      "frameId": "157:4212",
+      "entityId": "doctor",
+      "template": "entity-form-modal"
+    },
+    {
+      "id": "schedule-create",
+      "name": "新增排班弹窗",
+      "route": "/schedules/new",
+      "type": "modal",
+      "frameId": "176:4",
+      "entityId": "schedule",
+      "template": "entity-form-modal"
+    },
+    {
+      "id": "schedule-batch",
+      "name": "批量排班弹窗",
+      "route": "/schedules/batch",
+      "type": "modal",
+      "frameId": "176:46",
+      "entityId": "schedule",
+      "template": "batch-schedule-modal"
+    }
+  ],
+  "entities": [
+    {
+      "id": "organization",
+      "name": "机构",
+      "fields": [
+        { "id": "name", "name": "机构名称", "type": "string", "required": true },
+        { "id": "phone", "name": "联系电话", "type": "string", "required": false },
+        { "id": "subtitle", "name": "机构副标题", "type": "string", "required": false },
+        { "id": "businessHours", "name": "营业时间", "type": "string", "required": false },
+        { "id": "address", "name": "机构地址", "type": "string", "required": false },
+        { "id": "description", "name": "机构简介", "type": "text", "required": false }
+      ]
+    },
+    {
+      "id": "department",
+      "name": "科室",
+      "fields": [
+        { "id": "name", "name": "科室名称", "type": "string", "required": true },
+        { "id": "icon", "name": "科室图标", "type": "string", "required": true },
+        { "id": "description", "name": "科室描述", "type": "text", "required": false },
+        { "id": "sortOrder", "name": "排序", "type": "number", "required": false },
+        { "id": "status", "name": "状态", "type": "enum", "required": true }
+      ]
+    },
+    {
+      "id": "doctor",
+      "name": "医生",
+      "fields": [
+        { "id": "avatar", "name": "医生头像", "type": "string", "required": false },
+        { "id": "name", "name": "医生姓名", "type": "string", "required": true },
+        { "id": "title", "name": "职称", "type": "string", "required": true },
+        { "id": "departmentId", "name": "所属科室", "type": "ref:department", "required": true },
+        { "id": "fee", "name": "挂号费", "type": "number", "required": true },
+        { "id": "yearsExperience", "name": "从业年限", "type": "number", "required": false },
+        { "id": "rating", "name": "好评率", "type": "number", "required": false },
+        { "id": "specialty", "name": "擅长领域", "type": "text", "required": false },
+        { "id": "status", "name": "状态", "type": "enum", "required": true }
+      ]
+    },
+    {
+      "id": "schedule",
+      "name": "排班",
+      "fields": [
+        { "id": "doctorId", "name": "医生", "type": "ref:doctor", "required": true },
+        { "id": "date", "name": "排班日期", "type": "date", "required": true },
+        { "id": "period", "name": "时段", "type": "enum", "required": true },
+        { "id": "quota", "name": "可预约号源", "type": "number", "required": true },
+        { "id": "bookedCount", "name": "已预约数", "type": "number", "required": false },
+        { "id": "status", "name": "排班状态", "type": "enum", "required": true },
+        { "id": "remark", "name": "备注", "type": "string", "required": false }
+      ]
+    },
+    {
+      "id": "appointment",
+      "name": "预约",
+      "fields": [
+        { "id": "doctorId", "name": "医生", "type": "ref:doctor", "required": true },
+        { "id": "scheduleId", "name": "排班", "type": "ref:schedule", "required": false },
+        { "id": "date", "name": "预约日期", "type": "date", "required": true },
+        { "id": "status", "name": "状态", "type": "enum", "required": true },
+        { "id": "amount", "name": "金额", "type": "number", "required": false }
+      ]
+    }
+  ],
+  "navigation": {
+    "items": [
+      { "screenId": "home", "label": "首页" },
+      { "screenId": "organization", "label": "机构信息" },
+      { "screenId": "departments", "label": "科室管理" },
+      { "screenId": "doctors", "label": "医生管理" },
+      { "screenId": "schedules", "label": "排班管理" }
+    ]
+  },
+  "stats": [
+    { "id": "enabledDepartmentCount", "op": "count", "entityId": "department" },
+    { "id": "activeDoctorCount", "op": "count", "entityId": "doctor" },
+    { "id": "monthAppointmentCount", "op": "count", "entityId": "appointment" },
+    { "id": "monthRevenue", "op": "sum", "entityId": "appointment", "fieldId": "amount" }
+  ],
+  "needsReview": false
+}

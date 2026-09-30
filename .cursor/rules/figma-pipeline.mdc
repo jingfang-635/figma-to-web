@@ -1,0 +1,31 @@
+---
+description: Figma→全栈流水线不变量：决策无默认、零硬编码、无 IR 不写屏、闸门未过不算完成
+alwaysApply: true
+---
+
+# figma-pipeline 不变量
+
+## 决策与开跑
+
+- 技术栈逐层、鉴权（`jwt`|`none`）、产出路径（`apps`|`output-run`）均**无默认、不猜**。
+- 另须具备 `figma.fileKey` 与阶段所需 `.env` **键**（只检键名，不回显值）。
+- `artifacts/decision/decision.json` 未通过校验前，禁止 INGEST 及之后任何改工程状态。
+- `app-spec.stack|auth|output` 只能由 decision 合并而来，SPEC 不得改写。
+
+## 零硬编码
+
+- `.cursor/agents/**`、`.cursor/skills/**`（含 reference）禁止业务/设计字面量。
+- 业务值只进 `artifacts/app-spec`、`artifacts/ir`、仓库根 `.env`。
+- 路径只认 `spec.output.webDir` / `apiDir`，禁止把 `apps/web` 写成默认真理（`output-path-interview` 除外可写选项约定）。
+
+## 中间产物与写屏
+
+- 禁止从 Figma 节点直接吐最终页面代码。
+- 无对应 Layout IR（`artifacts/ir/layout/<screenId>.json`）不得写该屏。
+- 下游只读上游产物，禁止回头猜 Figma。
+
+## 交付
+
+- 视觉交付 = `gate-report.overall=PASS` + runtime 可达 + 用户交付确认，不是「codegen 完了」。
+- 密钥只进 `.env`，永不进 Skill/Agent/提交示例正文。
+- 能力未实现的屏不得沉默跳过装成全过；须 FAIL 码或经批准的 skip 记入 `pipeline-state`。

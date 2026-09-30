@@ -1,0 +1,24 @@
+{
+  "name": "figma-web-pipeline",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "docs:lint": "node scripts/docs-lint.mjs",
+    "validate:decision": "node scripts/validate-artifact.mjs decision",
+    "validate:state": "node scripts/validate-artifact.mjs pipeline-state",
+    "validate:app-spec": "node scripts/validate-artifact.mjs app-spec",
+    "stack:resolve": "node scripts/stack-resolve.mjs",
+    "state:init": "node scripts/pipeline-state.mjs init",
+    "state:show": "node scripts/pipeline-state.mjs show",
+    "env:check": "node scripts/env-check.mjs",
+    "output:paths": "node scripts/output-paths.mjs",
+    "decision:ui": "node scripts/decision-ui.mjs"
+  },
+  "dependencies": {
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1"
+  }
+}

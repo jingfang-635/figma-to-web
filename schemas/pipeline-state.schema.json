@@ -1,0 +1,92 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://figma-web.local/schemas/pipeline-state.schema.json",
+  "title": "PipelineState",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "phase",
+    "round",
+    "maxRounds",
+    "blocked",
+    "history",
+    "completed",
+    "artifacts"
+  ],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "phase": {
+      "enum": [
+        "DECISION",
+        "INGEST",
+        "SPEC",
+        "IR",
+        "CODEGEN",
+        "FIDELITY",
+        "GATE",
+        "REPAIR",
+        "DONE",
+        "STOPPED"
+      ]
+    },
+    "round": { "type": "integer", "minimum": 0 },
+    "maxRounds": { "type": "integer", "minimum": 1 },
+    "blocked": { "type": "boolean" },
+    "blockReason": { "type": ["string", "null"] },
+    "lastError": { "type": ["string", "null"] },
+    "history": { "type": "array" },
+    "skipLegs": {
+      "type": "array",
+      "items": { "enum": ["pixel", "geom", "text", "data"] }
+    },
+    "skipScreenIds": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "completed": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "DECISION",
+        "INGEST",
+        "SPEC",
+        "IR",
+        "CODEGEN",
+        "FIDELITY",
+        "GATE",
+        "DONE"
+      ],
+      "properties": {
+        "DECISION": { "type": "boolean" },
+        "INGEST": { "type": "boolean" },
+        "SPEC": { "type": "boolean" },
+        "IR": { "type": "boolean" },
+        "CODEGEN": { "type": "boolean" },
+        "FIDELITY": { "type": "boolean" },
+        "GATE": { "type": "boolean" },
+        "DONE": { "type": "boolean" }
+      }
+    },
+    "artifacts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "decision",
+        "appSpec",
+        "frameManifest",
+        "layoutIrDir",
+        "visualIr",
+        "gateReport"
+      ],
+      "properties": {
+        "decision": { "type": "string" },
+        "appSpec": { "type": "string" },
+        "frameManifest": { "type": "string" },
+        "layoutIrDir": { "type": "string" },
+        "visualIr": { "type": "string" },
+        "gateReport": { "type": ["string", "null"] }
+      }
+    }
+  }
+}
