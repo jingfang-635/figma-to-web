@@ -1,0 +1,211 @@
+{
+  "schemaVersion": 1,
+  "note": "Known implementation debt: literals that re-type IR values or fall back to an invented number when an IR node is absent. GATE_IMPL_* fails on any hit that is not listed here, so this file is a record of debt — not an approval of it.",
+  "generatedAt": "2026-10-08T08:43:51.857Z",
+  "scannedFiles": 38,
+  "entries": [
+    {
+      "code": "GATE_IMPL_HARDCODED",
+      "file": "apps/web/src/pages/DepartmentsPage.tsx",
+      "line": 243,
+      "literal": "#e6f7ff",
+      "reason": "Known debt recorded during toolchain hardening: design values copied into page code before the token layer covered them. Fix path: emit them into the generated token stylesheet and consume by name (token-binding); the auth screen has no Layout IR to derive from. Listed so the debt is visible, not to approve it."
+    },
+    {
+      "code": "GATE_IMPL_HARDCODED",
+      "file": "apps/web/src/pages/DepartmentsPage.tsx",
+      "line": 243,
+      "literal": "#1890ff",
+      "reason": "Known debt recorded during toolchain hardening: design values copied into page code before the token layer covered them. Fix path: emit them into the generated token stylesheet and consume by name (token-binding); the auth screen has no Layout IR to derive from. Listed so the debt is visible, not to approve it."
+    },
+    {
+      "code": "GATE_IMPL_HARDCODED",
+      "file": "apps/web/src/pages/DepartmentsPage.tsx",
+      "line": 244,
+      "literal": "#fff7e6",
+      "reason": "Known debt recorded during toolchain hardening: design values copied into page code before the token layer covered them. Fix path: emit them into the generated token stylesheet and consume by name (token-binding); the auth screen has no Layout IR to derive from. Listed so the debt is visible, not to approve it."
+    },
+    {
+      "code": "GATE_IMPL_HARDCODED",
+      "file": "apps/web/src/pages/DepartmentsPage.tsx",
+      "line": 244,
+      "literal": "#fa8c16",
+      "reason": "Known debt recorded during toolchain hardening: design values copied into page code before the token layer covered them. Fix path: emit them into the generated token stylesheet and consume by name (token-binding); the auth screen has no Layout IR to derive from. Listed so the debt is visible, not to approve it."
+    },
+    {
+      "code": "GATE_IMPL_HARDCODED",
+      "file": "apps/web/src/pages/DepartmentsPage.tsx",
+      "line": 245,
+      "literal": "#fff0f6",
+      "reason": "Known debt recorded during toolchain hardening: design values copied into page code before the token layer covered them. Fix path: emit them into the generated token stylesheet and consume by name (token-binding); the auth screen has no Layout IR to derive from. Listed so the debt is visible, not to approve it."
+    },
+    {
+      "code": "GATE_IMPL_HARDCODED",
+      "file": "apps/web/src/pages/DepartmentsPage.tsx",
+      "line": 245,
+      "literal": "#eb2f96",
+      "reason": "Known debt recorded during toolchain hardening: design values copied into page code before the token layer covered them. Fix path: emit them into the generated token stylesheet and consume by name (token-binding); the auth screen has no Layout IR to derive from. Listed so the debt is visible, not to approve it."
+    },
+    {
+      "code": "GATE_IMPL_HARDCODED",
+      "file": "apps/web/src/pages/DepartmentsPage.tsx",
+      "line": 246,
+      "literal": "#f6ffed",
+      "reason": "Known debt recorded during toolchain hardening: design values copied into page code before the token layer covered them. Fix path: emit them into the generated token stylesheet and consume by name (token-binding); the auth screen has no Layout IR to derive from. Listed so the debt is visible, not to approve it."
+    },
+    {
+      "code": "GATE_IMPL_HARDCODED",
+      "file": "apps/web/src/pages/DepartmentsPage.tsx",
+      "line": 246,
+      "literal": "#52c41a",
+      "reason": "Known debt recorded during toolchain hardening: design values copied into page code before the token layer covered them. Fix path: emit them into the generated token stylesheet and consume by name (token-binding); the auth screen has no Layout IR to derive from. Listed so the debt is visible, not to approve it."
+    },
+    {
+      "code": "GATE_IMPL_HARDCODED",
+      "file": "apps/web/src/pages/DepartmentsPage.tsx",
+      "line": 247,
+      "literal": "#f9f0ff",
+      "reason": "Known debt recorded during toolchain hardening: design values copied into page code before the token layer covered them. Fix path: emit them into the generated token stylesheet and consume by name (token-binding); the auth screen has no Layout IR to derive from. Listed so the debt is visible, not to approve it."
+    },
+    {
+      "code": "GATE_IMPL_HARDCODED",
+      "file": "apps/web/src/pages/DepartmentsPage.tsx",
+      "line": 247,
+      "literal": "#722ed1",
+      "reason": "Known debt recorded during toolchain hardening: design values copied into page code before the token layer covered them. Fix path: emit them into the generated token stylesheet and consume by name (token-binding); the auth screen has no Layout IR to derive from. Listed so the debt is visible, not to approve it."
+    },
+    {
+      "code": "GATE_IMPL_HARDCODED",
+      "file": "apps/web/src/pages/DepartmentsPage.tsx",
+      "line": 248,
+      "literal": "#e6fffb",
+      "reason": "Known debt recorded during toolchain hardening: design values copied into page code before the token layer covered them. Fix path: emit them into the generated token stylesheet and consume by name (token-binding); the auth screen has no Layout IR to derive from. Listed so the debt is visible, not to approve it."
+    },
+    {
+      "code": "GATE_IMPL_HARDCODED",
+      "file": "apps/web/src/pages/DepartmentsPage.tsx",
+      "line": 248,
+      "literal": "#13c2c2",
+      "reason": "Known debt recorded during toolchain hardening: design values copied into page code before the token layer covered them. Fix path: emit them into the generated token stylesheet and consume by name (token-binding); the auth screen has no Layout IR to derive from. Listed so the debt is visible, not to approve it."
+    },
+    {
+      "code": "GATE_IMPL_HARDCODED",
+      "file": "apps/web/src/pages/DepartmentsPage.tsx",
+      "line": 251,
+      "literal": "#f5f5f5",
+      "reason": "Known debt recorded during toolchain hardening: design values copied into page code before the token layer covered them. Fix path: emit them into the generated token stylesheet and consume by name (token-binding); the auth screen has no Layout IR to derive from. Listed so the debt is visible, not to approve it."
+    },
+    {
+      "code": "GATE_IMPL_HARDCODED",
+      "file": "apps/web/src/pages/LoginPage.tsx",
+      "line": 38,
+      "literal": "#f5f5f5",
+      "reason": "Known debt recorded during toolchain hardening: design values copied into page code before the token layer covered them. Fix path: emit them into the generated token stylesheet and consume by name (token-binding); the auth screen has no Layout IR to derive from. Listed so the debt is visible, not to approve it."
+    },
+    {
+      "code": "GATE_IMPL_HARDCODED",
+      "file": "apps/web/src/styles/app.css",
+      "line": 281,
+      "literal": "#fafafa",
+      "reason": "Known debt recorded during toolchain hardening: design values copied into page code before the token layer covered them. Fix path: emit them into the generated token stylesheet and consume by name (token-binding); the auth screen has no Layout IR to derive from. Listed so the debt is visible, not to approve it."
+    },
+    {
+      "code": "GATE_IMPL_HARDCODED",
+      "file": "apps/web/src/theme/antdTheme.ts",
+      "line": 36,
+      "literal": "#fafafa",
+      "reason": "Known debt recorded during toolchain hardening: design values copied into page code before the token layer covered them. Fix path: emit them into the generated token stylesheet and consume by name (token-binding); the auth screen has no Layout IR to derive from. Listed so the debt is visible, not to approve it."
+    },
+    {
+      "code": "GATE_IMPL_IR_FALLBACK",
+      "file": "apps/web/src/components/IrPanels.tsx",
+      "line": 315,
+      "literal": "??9",
+      "reason": "Known debt recorded during toolchain hardening: a numeric fallback on an IR-geometry lookup means a missing IR node silently renders an invented number instead of failing loudly. Fix path: require the IR node (screen-layout-from-ir) so the fallback is unnecessary. Entries that only guard a comparison rather than a rendered box are harmless but stay listed for review."
+    },
+    {
+      "code": "GATE_IMPL_IR_FALLBACK",
+      "file": "apps/web/src/components/IrPanels.tsx",
+      "line": 350,
+      "literal": "??44",
+      "reason": "Known debt recorded during toolchain hardening: a numeric fallback on an IR-geometry lookup means a missing IR node silently renders an invented number instead of failing loudly. Fix path: require the IR node (screen-layout-from-ir) so the fallback is unnecessary. Entries that only guard a comparison rather than a rendered box are harmless but stay listed for review."
+    },
+    {
+      "code": "GATE_IMPL_IR_FALLBACK",
+      "file": "apps/web/src/components/IrPanels.tsx",
+      "line": 351,
+      "literal": "??15",
+      "reason": "Known debt recorded during toolchain hardening: a numeric fallback on an IR-geometry lookup means a missing IR node silently renders an invented number instead of failing loudly. Fix path: require the IR node (screen-layout-from-ir) so the fallback is unnecessary. Entries that only guard a comparison rather than a rendered box are harmless but stay listed for review."
+    },
+    {
+      "code": "GATE_IMPL_IR_FALLBACK",
+      "file": "apps/web/src/components/IrPanels.tsx",
+      "line": 427,
+      "literal": "??40",
+      "reason": "Known debt recorded during toolchain hardening: a numeric fallback on an IR-geometry lookup means a missing IR node silently renders an invented number instead of failing loudly. Fix path: require the IR node (screen-layout-from-ir) so the fallback is unnecessary. Entries that only guard a comparison rather than a rendered box are harmless but stay listed for review."
+    },
+    {
+      "code": "GATE_IMPL_IR_FALLBACK",
+      "file": "apps/web/src/components/IrPanels.tsx",
+      "line": 428,
+      "literal": "??15",
+      "reason": "Known debt recorded during toolchain hardening: a numeric fallback on an IR-geometry lookup means a missing IR node silently renders an invented number instead of failing loudly. Fix path: require the IR node (screen-layout-from-ir) so the fallback is unnecessary. Entries that only guard a comparison rather than a rendered box are harmless but stay listed for review."
+    },
+    {
+      "code": "GATE_IMPL_IR_FALLBACK",
+      "file": "apps/web/src/pages/DepartmentsPage.tsx",
+      "line": 194,
+      "literal": "??255",
+      "reason": "Known debt recorded during toolchain hardening: a numeric fallback on an IR-geometry lookup means a missing IR node silently renders an invented number instead of failing loudly. Fix path: require the IR node (screen-layout-from-ir) so the fallback is unnecessary. Entries that only guard a comparison rather than a rendered box are harmless but stay listed for review."
+    },
+    {
+      "code": "GATE_IMPL_IR_FALLBACK",
+      "file": "apps/web/src/pages/DoctorsPage.tsx",
+      "line": 225,
+      "literal": "??255",
+      "reason": "Known debt recorded during toolchain hardening: a numeric fallback on an IR-geometry lookup means a missing IR node silently renders an invented number instead of failing loudly. Fix path: require the IR node (screen-layout-from-ir) so the fallback is unnecessary. Entries that only guard a comparison rather than a rendered box are harmless but stay listed for review."
+    },
+    {
+      "code": "GATE_IMPL_IR_FALLBACK",
+      "file": "apps/web/src/pages/HomePage.tsx",
+      "line": 189,
+      "literal": "??244",
+      "reason": "Known debt recorded during toolchain hardening: a numeric fallback on an IR-geometry lookup means a missing IR node silently renders an invented number instead of failing loudly. Fix path: require the IR node (screen-layout-from-ir) so the fallback is unnecessary. Entries that only guard a comparison rather than a rendered box are harmless but stay listed for review."
+    },
+    {
+      "code": "GATE_IMPL_IR_FALLBACK",
+      "file": "apps/web/src/pages/HomePage.tsx",
+      "line": 191,
+      "literal": "??143",
+      "reason": "Known debt recorded during toolchain hardening: a numeric fallback on an IR-geometry lookup means a missing IR node silently renders an invented number instead of failing loudly. Fix path: require the IR node (screen-layout-from-ir) so the fallback is unnecessary. Entries that only guard a comparison rather than a rendered box are harmless but stay listed for review."
+    },
+    {
+      "code": "GATE_IMPL_IR_FALLBACK",
+      "file": "apps/web/src/pages/HomePage.tsx",
+      "line": 192,
+      "literal": "??92",
+      "reason": "Known debt recorded during toolchain hardening: a numeric fallback on an IR-geometry lookup means a missing IR node silently renders an invented number instead of failing loudly. Fix path: require the IR node (screen-layout-from-ir) so the fallback is unnecessary. Entries that only guard a comparison rather than a rendered box are harmless but stay listed for review."
+    },
+    {
+      "code": "GATE_IMPL_IR_FALLBACK",
+      "file": "apps/web/src/pages/SchedulesPage.tsx",
+      "line": 96,
+      "literal": "??0",
+      "reason": "Known debt recorded during toolchain hardening: a numeric fallback on an IR-geometry lookup means a missing IR node silently renders an invented number instead of failing loudly. Fix path: require the IR node (screen-layout-from-ir) so the fallback is unnecessary. Entries that only guard a comparison rather than a rendered box are harmless but stay listed for review."
+    },
+    {
+      "code": "GATE_IMPL_IR_FALLBACK",
+      "file": "apps/web/src/pages/SchedulesPage.tsx",
+      "line": 237,
+      "literal": "??991",
+      "reason": "Known debt recorded during toolchain hardening: a numeric fallback on an IR-geometry lookup means a missing IR node silently renders an invented number instead of failing loudly. Fix path: require the IR node (screen-layout-from-ir) so the fallback is unnecessary. Entries that only guard a comparison rather than a rendered box are harmless but stay listed for review."
+    },
+    {
+      "code": "GATE_IMPL_IR_FALLBACK",
+      "file": "apps/web/src/pages/SchedulesPage.tsx",
+      "line": 238,
+      "literal": "??166",
+      "reason": "Known debt recorded during toolchain hardening: a numeric fallback on an IR-geometry lookup means a missing IR node silently renders an invented number instead of failing loudly. Fix path: require the IR node (screen-layout-from-ir) so the fallback is unnecessary. Entries that only guard a comparison rather than a rendered box are harmless but stay listed for review."
+    }
+  ]
+}

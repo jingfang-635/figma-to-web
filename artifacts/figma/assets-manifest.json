@@ -1,6 +1,169 @@
 {
   "schemaVersion": 1,
   "fileKey": "KLYzRbufrish4gmY4jpUS0",
-  "exportedAt": "2026-09-30T09:40:22.706Z",
-  "assets": []
+  "exportedAt": "2026-10-08T08:40:56.743Z",
+  "assets": [
+    {
+      "screenId": "home",
+      "frameId": "157:2",
+      "kind": "ref-screen",
+      "path": "imports/figma/screens/home.png",
+      "bytes": 101145,
+      "cardSize": {
+        "width": 1440,
+        "height": 1068
+      },
+      "effectBleed": {
+        "top": 0,
+        "left": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "normalization": "already-normalized"
+    },
+    {
+      "screenId": "organization",
+      "frameId": "157:203",
+      "kind": "ref-screen",
+      "path": "imports/figma/screens/organization.png",
+      "bytes": 75642,
+      "cardSize": {
+        "width": 1440,
+        "height": 1068
+      },
+      "effectBleed": {
+        "top": 0,
+        "left": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "normalization": "already-normalized"
+    },
+    {
+      "screenId": "departments",
+      "frameId": "157:312",
+      "kind": "ref-screen",
+      "path": "imports/figma/screens/departments.png",
+      "bytes": 87776,
+      "cardSize": {
+        "width": 1440,
+        "height": 1068
+      },
+      "effectBleed": {
+        "top": 0,
+        "left": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "normalization": "already-normalized"
+    },
+    {
+      "screenId": "doctors",
+      "frameId": "157:523",
+      "kind": "ref-screen",
+      "path": "imports/figma/screens/doctors.png",
+      "bytes": 98574,
+      "cardSize": {
+        "width": 1440,
+        "height": 1068
+      },
+      "effectBleed": {
+        "top": 0,
+        "left": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "normalization": "already-normalized"
+    },
+    {
+      "screenId": "schedules",
+      "frameId": "157:756",
+      "kind": "ref-screen",
+      "path": "imports/figma/screens/schedules.png",
+      "bytes": 80595,
+      "cardSize": {
+        "width": 1440,
+        "height": 1068
+      },
+      "effectBleed": {
+        "top": 0,
+        "left": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "normalization": "already-normalized"
+    },
+    {
+      "screenId": "department-create",
+      "frameId": "157:4177",
+      "kind": "ref-screen",
+      "path": "imports/figma/screens/department-create.png",
+      "bytes": 16523,
+      "cardSize": {
+        "width": 520,
+        "height": 493
+      },
+      "effectBleed": {
+        "top": 8,
+        "left": 12,
+        "right": 12,
+        "bottom": 16
+      },
+      "normalization": "cropped-to-card"
+    },
+    {
+      "screenId": "doctor-create",
+      "frameId": "157:4212",
+      "kind": "ref-screen",
+      "path": "imports/figma/screens/doctor-create.png",
+      "bytes": 21225,
+      "cardSize": {
+        "width": 520,
+        "height": 717
+      },
+      "effectBleed": {
+        "top": 8,
+        "left": 12,
+        "right": 12,
+        "bottom": 16
+      },
+      "normalization": "cropped-to-card"
+    },
+    {
+      "screenId": "schedule-create",
+      "frameId": "176:4",
+      "kind": "ref-screen",
+      "path": "imports/figma/screens/schedule-create.png",
+      "bytes": 17555,
+      "cardSize": {
+        "width": 520,
+        "height": 489
+      },
+      "effectBleed": {
+        "top": 8,
+        "left": 12,
+        "right": 12,
+        "bottom": 16
+      },
+      "normalization": "cropped-to-card"
+    },
+    {
+      "screenId": "schedule-batch",
+      "frameId": "176:46",
+      "kind": "ref-screen",
+      "path": "imports/figma/screens/schedule-batch.png",
+      "bytes": 36877,
+      "cardSize": {
+        "width": 520,
+        "height": 726
+      },
+      "effectBleed": {
+        "top": 8,
+        "left": 12,
+        "right": 12,
+        "bottom": 16
+      },
+      "normalization": "cropped-to-card"
+    }
+  ]
 }

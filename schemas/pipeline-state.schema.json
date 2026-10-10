@@ -38,11 +38,31 @@
     "history": { "type": "array" },
     "skipLegs": {
       "type": "array",
-      "items": { "enum": ["pixel", "geom", "text", "data"] }
+      "items": { "enum": ["pixel", "geom", "text", "icons", "cells", "layout", "data", "impl"] }
     },
     "skipScreenIds": {
       "type": "array",
       "items": { "type": "string" }
+    },
+    "gateLegs": {
+      "type": "array",
+      "description": "Leg roster frozen by the Orchestrator when FIDELITY starts. A screen written before a leg existed is not asserted by that leg, so the roster must be complete before any screen is written.",
+      "items": { "enum": ["pixel", "geom", "text", "icons", "cells", "layout", "data", "impl"] }
+    },
+    "legsAddedAfterFidelity": {
+      "type": "array",
+      "description": "Legs introduced after FIDELITY began. Each entry means the already-written screens were produced without that leg in force, so they must be re-processed (and the list emptied) before GATE can be trusted.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["leg", "addedAt", "screensReprocessed"],
+        "properties": {
+          "leg": { "enum": ["pixel", "geom", "text", "icons", "cells", "layout", "data", "impl"] },
+          "addedAt": { "type": "string" },
+          "screensReprocessed": { "type": "boolean" },
+          "note": { "type": "string" }
+        }
+      }
     },
     "completed": {
       "type": "object",

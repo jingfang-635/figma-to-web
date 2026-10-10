@@ -1,0 +1,25 @@
+/* generated from artifacts/ir/visual-ir.json tokens — do not hand-edit values */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap');
+:root {
+  --font-family: Noto Sans SC;
+  --color-bg-page: #f5f7fa;
+  --color-bg-sidebar: #ffffff;
+  --color-border: #f0f0f0;
+  --color-primary: #1890ff;
+  --color-brand: #20bf88;
+  --color-text-title: #262626;
+  --color-text-body: #262626;
+  --color-text-secondary: #595959;
+  --color-text-tertiary: #8c8c8c;
+  --color-text-placeholder: #bfbfbf;
+  --color-danger: #ff4d4f;
+  --color-bg-content: #ffffff;
+  --space-sidebar-width: 220px;
+  --space-header-height: 52px;
+  --radius-card: 8px;
+  --radius-control: 6px;
+  --chrome-sidebar-width: 220px;
+  --chrome-sidebar-height: 1068px;
+  --chrome-header-height: 52px;
+  --chrome-header-width: 1220px;
+}

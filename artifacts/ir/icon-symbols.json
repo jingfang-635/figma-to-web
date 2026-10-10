@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "note": "Symbol names the Layout IR tree could not supply. `source: glyph-match` means the identity was recovered by matching the drawn glyph in imports/figma/screens/<screenId>.png, which is what layout-ir-extract requires when Figma never named the node. Design data lives here (artifacts/ir), never in a skill or a script.",
+  "overrides": [
+    {
+      "screenId": "home",
+      "nodeId": "272:60",
+      "name": "PieChartOutlined",
+      "source": "glyph-match"
+    },
+    {
+      "screenId": "home",
+      "nodeId": "275:1297",
+      "name": "GoldOutlined",
+      "source": "glyph-match"
+    },
+    {
+      "screenId": "home",
+      "nodeId": "275:1299",
+      "name": "BarChartOutlined",
+      "source": "glyph-match"
+    },
+    {
+      "screenId": "doctors",
+      "nodeId": "159:4590",
+      "name": "DownOutlined",
+      "source": "glyph-match"
+    },
+    {
+      "screenId": "schedules",
+      "nodeId": "159:4602",
+      "name": "DownOutlined",
+      "source": "glyph-match"
+    },
+    {
+      "screenId": "schedules",
+      "nodeId": "159:4605",
+      "name": "DownOutlined",
+      "source": "glyph-match"
+    },
+    {
+      "screenId": "schedules",
+      "nodeId": "272:239",
+      "name": "LeftOutlined",
+      "source": "glyph-match"
+    },
+    {
+      "screenId": "schedule-create",
+      "nodeId": "176:14",
+      "name": "DownOutlined",
+      "source": "glyph-match"
+    },
+    {
+      "screenId": "schedule-batch",
+      "nodeId": "176:66",
+      "name": "DownOutlined",
+      "source": "glyph-match"
+    },
+    {
+      "screenId": "schedule-batch",
+      "nodeId": "177:55",
+      "name": "DownOutlined",
+      "source": "glyph-match"
+    }
+  ]
+}

@@ -5,3 +5,7 @@ artifacts/gates/**
 !artifacts/gates/.gitkeep
 artifacts/figma/raw/
 *.log
+# 调试探针与临时对比图（门禁调试用，不属交付）
+artifacts/_*
+# TypeScript 增量编译缓存
+*.tsbuildinfo

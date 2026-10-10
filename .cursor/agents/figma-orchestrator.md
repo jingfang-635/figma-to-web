@@ -14,7 +14,7 @@ description: >-
 ## 职责
 
 - 唯一写手：`phase` / `completed` / `round` / `blocked`
-- 按状态机串行调用阶段 Agent；禁止跳步与并行 CODEGEN+FIDELITY
+- 按阶段流转串行调用阶段 Agent；禁止跳步与并行 CODEGEN+FIDELITY
 - DECISION 未完成禁止进入 INGEST 及之后改工程
 
 ## 完成判据

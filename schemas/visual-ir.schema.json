@@ -36,7 +36,12 @@
         "required": ["screenId"],
         "properties": {
           "screenId": { "type": "string" },
-          "triggerScreenId": { "type": "string" }
+          "triggerScreenId": { "type": "string" },
+          "anchor": {
+            "type": "string",
+            "enum": ["center", "top-center"],
+            "description": "Runtime display anchor. The prototype draws modals as top-level frames beside page frames, so no on-page anchor exists in the Figma data; this is a declared convention, not a derived fact."
+          }
         }
       }
     }

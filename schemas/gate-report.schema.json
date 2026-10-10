@@ -12,12 +12,16 @@
     "legs": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["pixel", "geom", "text", "data"],
+      "required": ["pixel", "geom", "text", "icons", "cells", "layout", "data", "impl"],
       "properties": {
         "pixel": { "$ref": "#/$defs/leg" },
         "geom": { "$ref": "#/$defs/leg" },
         "text": { "$ref": "#/$defs/leg" },
-        "data": { "$ref": "#/$defs/leg" }
+        "icons": { "$ref": "#/$defs/leg" },
+        "cells": { "$ref": "#/$defs/leg" },
+        "layout": { "$ref": "#/$defs/leg" },
+        "data": { "$ref": "#/$defs/leg" },
+        "impl": { "$ref": "#/$defs/leg" }
       }
     },
     "runtime": {
@@ -26,7 +30,12 @@
       "required": ["webOk", "apiOk"],
       "properties": {
         "webOk": { "type": "boolean" },
-        "apiOk": { "type": "boolean" }
+        "apiOk": { "type": "boolean" },
+        "failures": {
+          "type": "array",
+          "description": "Why the probe failed (code RUNTIME_NOT_UP with the failing side in the message). Without this a failed run says overall=FAIL while nothing in the report explains it.",
+          "items": { "$ref": "#/$defs/failure" }
+        }
       }
     }
   },
@@ -52,6 +61,10 @@
         "failures": {
           "type": "array",
           "items": { "$ref": "#/$defs/failure" }
+        },
+        "notes": {
+          "type": "array",
+          "items": { "type": "string" }
         }
       }
     }

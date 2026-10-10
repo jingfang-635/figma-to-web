@@ -6,8 +6,11 @@
     "node": ">=20"
   },
   "scripts": {
-    "docs:lint": "node scripts/docs-lint.mjs",
+    "docs:lint": "node scripts/docs-lint.mjs && node scripts/consistency.mjs",
+    "ir:icons": "node scripts/ir-icons.mjs",
+    "ir:cells": "node scripts/ir-cells.mjs",
     "validate:decision": "node scripts/validate-artifact.mjs decision",
+    "validate:layout-ir": "node scripts/validate-artifact.mjs layout-ir",
     "validate:state": "node scripts/validate-artifact.mjs pipeline-state",
     "validate:app-spec": "node scripts/validate-artifact.mjs app-spec",
     "stack:resolve": "node scripts/stack-resolve.mjs",
@@ -15,10 +18,17 @@
     "state:show": "node scripts/pipeline-state.mjs show",
     "env:check": "node scripts/env-check.mjs",
     "output:paths": "node scripts/output-paths.mjs",
-    "decision:ui": "node scripts/decision-ui.mjs"
+    "decision:ui": "node scripts/decision-ui.mjs",
+    "gate:capture": "node scripts/gate-capture.mjs",
+    "gate:run": "node scripts/gate-run.mjs",
+    "visual:capture": "node scripts/gate-capture.mjs",
+    "visual:gate": "node scripts/gate-run.mjs"
   },
   "dependencies": {
     "ajv": "^8.17.1",
     "ajv-formats": "^3.0.1"
+  },
+  "devDependencies": {
+    "playwright": "^1.64.0"
   }
 }

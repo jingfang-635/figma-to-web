@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "phase": "SPEC",
-  "round": 0,
+  "phase": "GATE",
+  "round": 4,
   "maxRounds": 5,
   "blocked": false,
   "blockReason": null,
@@ -45,16 +45,265 @@
       "at": "2026-09-30T09:41:30.000Z",
       "event": "ingest-frames-confirmed",
       "includedCount": 9,
-      "excluded": ["280:2024", "280:1700"]
+      "excluded": [
+        "280:2024",
+        "280:1700"
+      ]
+    },
+    {
+      "at": "2026-09-30T09:47:30.000Z",
+      "event": "spec-confirmed"
+    },
+    {
+      "at": "2026-09-30T09:50:00.000Z",
+      "event": "ir-complete",
+      "layoutCount": 9
+    },
+    {
+      "at": "2026-10-08T01:20:00.000Z",
+      "event": "codegen-scaffolded",
+      "webBuild": 0,
+      "apiBuild": 0
+    },
+    {
+      "at": "2026-10-08T01:31:15.000Z",
+      "event": "codegen-migrate-seed-ok"
+    },
+    {
+      "at": "2026-10-08T02:07:00.000Z",
+      "event": "gate-fail-enter-repair",
+      "runStamp": "20261008-095554",
+      "round": 1,
+      "codes": [
+        "GATE_PIXEL_DIFF",
+        "GATE_PIXEL_SIZE",
+        "GATE_GEOM_CONTROL",
+        "GATE_GEOM_MODAL",
+        "GATE_TEXT_CONTENT",
+        "GATE_TEXT_STYLE"
+      ]
+    },
+    {
+      "at": "2026-10-08T02:08:00.000Z",
+      "event": "ingest-ref-screens-exported",
+      "count": 9,
+      "path": "imports/figma/screens"
+    },
+    {
+      "at": "2026-10-08T02:30:00.000Z",
+      "event": "ir-role-remap-ok",
+      "remaps": 23
+    },
+    {
+      "at": "2026-10-08T02:32:00.000Z",
+      "event": "fidelity-absolute-rewrite-ok",
+      "screens": 9
+    },
+    {
+      "at": "2026-10-08T02:33:00.000Z",
+      "event": "gate-rerun",
+      "runStamp": "20261008-103223",
+      "overall": "FAIL"
+    },
+    {
+      "at": "2026-10-08T03:20:00.000Z",
+      "event": "prototype-change-detected",
+      "source": "figma-node-visibility",
+      "note": "sidebar items below the last included nav entry set visible=false in prototype"
+    },
+    {
+      "at": "2026-10-08T03:20:00.000Z",
+      "event": "ingest-ref-screens-exported",
+      "count": 9,
+      "path": "imports/figma/screens"
+    },
+    {
+      "at": "2026-10-08T03:20:00.000Z",
+      "event": "ir-chrome-refreshed",
+      "hiddenSidebarNodesPruned": 56
+    },
+    {
+      "at": "2026-10-08T03:21:00.000Z",
+      "event": "gate-rerun",
+      "runStamp": "20261008-112027",
+      "overall": "FAIL"
+    },
+    {
+      "at": "2026-10-08T06:45:01.000Z",
+      "event": "gate-rerun",
+      "runStamp": "20261008-144501",
+      "overall": "FAIL",
+      "note": "toolchain gained icon/layout legs; app has not yet implemented their DOM contracts"
+    },
+    {
+      "at": "2026-10-08T09:10:46.000Z",
+      "event": "gate-rerun",
+      "runStamp": "20261008-171046",
+      "overall": "PASS",
+      "legs": {
+        "pixel": "PASS",
+        "geom": "PASS",
+        "text": "PASS",
+        "icons": "PASS",
+        "layout": "PASS",
+        "data": "PASS",
+        "impl": "PASS"
+      }
+    },
+    {
+      "at": "2026-10-09T01:45:00.000Z",
+      "event": "gate-toolchain-extended",
+      "note": "用户报「列表超出模块框 + 翻页器与原型不一致」但四门全绿：该形态此前无腿可见（行/翻页器被 data-ir-live 整块遮罩；容器层/内容层只看盒宽，不看纵向容纳）。补腿：capture 容器容纳探针 + layout 腿容纳层（GATE_LAYOUT_OVERFLOW）、遮罩越出 panel 判 FAIL（GATE_IMPL_MASK_OUTSIDE_CARD）、翻页方框入 IR（role=pagination-item）。两个新判据均以合成用例验证过「能 FAIL」",
+      "newCodes": [
+        "GATE_LAYOUT_OVERFLOW"
+      ],
+      "extendedCodes": [
+        "GATE_IMPL_MASK_OUTSIDE_CARD"
+      ],
+      "irContracts": [
+        "controls.role=pagination-item"
+      ]
+    },
+    {
+      "at": "2026-10-09T01:45:00.000Z",
+      "event": "screens-reprocessed-under-strengthened-legs",
+      "screens": 9,
+      "note": "补腿后对全部 9 屏重跑：layout 容纳层与 impl 遮罩项均已在新判据下逐屏验证（等价于 legsAddedAfterFidelity 要求的 screensReprocessed）"
+    },
+    {
+      "at": "2026-10-09T02:00:11.000Z",
+      "event": "gate-rerun",
+      "runStamp": "20261009-100011",
+      "overall": "PASS",
+      "legs": {
+        "pixel": "PASS",
+        "geom": "PASS",
+        "text": "PASS",
+        "icons": "PASS",
+        "layout": "PASS",
+        "data": "PASS",
+        "impl": "PASS"
+      },
+      "repairLog": "artifacts/gates/20261009-100011/repair-log.json",
+      "note": "列表屏方案 B（卡片随内容长高、min-height 取 IR）+ 行高/表头高/分页大小与翻页器全部取自 IR；仍在等待用户交付确认"
+    },
+    {
+      "at": "2026-10-09T02:11:26.000Z",
+      "event": "runtime-auth-expiry-fixed",
+      "symptom": "用户报「页面数据全都没有了」：KPI 全 0、列表暂无数据",
+      "rootCause": "浏览器 localStorage 内 24h JWT 过期（JWT_EXPIRATION_MS 默认 86400000）；后端数据完好（departments=6/doctors=8/appointments=83）。应用无 401/403 处理：RequireAuth 只查 token 是否存在，各页 load() 只有 try/finally 无 catch，故鉴权失败被静默吞成「0 条记录」",
+      "evidence": "Edge 无头复现（过期 token）：4 个 /api/* 全 403，final url 停在 /doctors，KPI=[0,0,0,0]，暂无数据；修复后同一 token 重定向到 /login，正常 token 下 rows=4",
+      "fix": "apiFetch 对「带 token 却收到 401/403」判为会话失效 → 清 token 并广播 onAuthExpired；AuthProvider 订阅后置空 → RequireAuth 跳登录；各页 load() 增 catch（AuthExpiredError 不再重复报错，其余错误不再被误读成空数据）",
+      "files": [
+        "apps/web/src/api/client.ts",
+        "apps/web/src/auth/AuthContext.tsx",
+        "apps/web/src/pages/DoctorsPage.tsx",
+        "apps/web/src/pages/DepartmentsPage.tsx",
+        "apps/web/src/pages/SchedulesPage.tsx",
+        "apps/web/src/pages/HomePage.tsx",
+        "apps/web/src/pages/OrganizationPage.tsx"
+      ],
+      "note": "GATE 无法捕捉此类：每次 gate 都新登录，token 恒有效。属运行期健壮性，非视觉腿"
+    },
+    {
+      "at": "2026-10-09T02:11:26.000Z",
+      "event": "gate-rerun",
+      "runStamp": "20261009-101126",
+      "overall": "PASS",
+      "legs": {
+        "pixel": "PASS",
+        "geom": "PASS",
+        "text": "PASS",
+        "icons": "PASS",
+        "layout": "PASS",
+        "data": "PASS",
+        "impl": "PASS"
+      },
+      "note": "鉴权健壮性修复后重跑，9 屏全过"
+    },
+    {
+      "at": "2026-10-09T02:14:00.000Z",
+      "event": "gate-toolchain-extended",
+      "kind": "measurement",
+      "note": "用户报「排班管理屏未按原型还原」但四门全绿：该形态此前无腿可见——日历网格是画出来的矩形，不是控件也不是图标，像素腿被 data-ir-live 整块遮罩挡掉、geom 腿无控件可配、text 腿无字符串、icon 腿无字形。补腿：Layout IR cells[] 契约 + capture 单元格探针 + cells 腿（GATE_CELL_MISSING/ROLE/BOX/FILL）+ impl 腿遮罩-单元格项（GATE_IMPL_MASK_ON_CELL）。合成用例验证「能 FAIL」：行高 x1.5、整片刷白、徽标 24→30、图例色块 x+6、切换轨 h31→45、删槽 均触发；容差 GATE_CELL_TOL_PX 默认收紧到 2（实测全屏漂移 <1px）",
+      "newCodes": [
+        "GATE_CELL_MISSING",
+        "GATE_CELL_ROLE",
+        "GATE_CELL_BOX",
+        "GATE_CELL_FILL"
+      ],
+      "extendedCodes": [
+        "GATE_IMPL_MASK_ON_CELL"
+      ],
+      "irContracts": [
+        "cells[]"
+      ],
+      "thresholdKey": "GATE_CELL_TOL_PX"
+    },
+    {
+      "at": "2026-10-09T02:18:00.000Z",
+      "event": "fidelity-schedules-restored",
+      "kind": "fidelity",
+      "screens": [
+        "schedules"
+      ],
+      "note": "数据补种：DataSeeder 按当前月造足量排班样本，/api/schedules 非空壳。写屏：SchedulesPage 日历与 chrome 全部从 Layout IR 派生（buildCalendarModel）：表头/行高、四态底色、今日圆标、图例色块、分段开关轨；cells 槽逐槽 data-ir-cell，data-ir-live 收敛到日期数字与格内 chip（不再整块盖住网格）",
+      "files": [
+        "apps/api/src/main/java/com/yangguang/yiliao/seed/DataSeeder.java",
+        "apps/web/src/pages/SchedulesPage.tsx",
+        "apps/web/src/ir/scheduleCalendar.ts",
+        "apps/web/src/styles/app.css"
+      ]
+    },
+    {
+      "at": "2026-10-09T02:20:00.000Z",
+      "event": "screens-reprocessed-under-strengthened-legs",
+      "screens": 9,
+      "screensReprocessed": true,
+      "note": "补 cells 腿后对全部 9 屏重采重跑（含加宽视口），全部纳入新判据"
+    },
+    {
+      "at": "2026-10-09T02:21:00.000Z",
+      "event": "gate-rerun",
+      "runStamp": "cells3",
+      "overall": "PASS",
+      "legs": {
+        "pixel": "PASS",
+        "geom": "PASS",
+        "text": "PASS",
+        "icons": "PASS",
+        "cells": "PASS",
+        "layout": "PASS",
+        "data": "PASS",
+        "impl": "PASS"
+      },
+      "note": "仍在等待用户交付确认"
+    },
+    {
+      "at": "2026-10-09T02:30:00.000Z",
+      "event": "gate-rerun",
+      "runStamp": "cells4",
+      "overall": "PASS",
+      "legs": {
+        "pixel": "PASS",
+        "geom": "PASS",
+        "text": "PASS",
+        "icons": "PASS",
+        "cells": "PASS",
+        "layout": "PASS",
+        "data": "PASS",
+        "impl": "PASS"
+      },
+      "note": "文档/schema/契约落盘后独立重采重跑，8 腿全过；仍在等待用户交付确认"
     }
   ],
   "completed": {
     "DECISION": true,
     "INGEST": true,
-    "SPEC": false,
-    "IR": false,
-    "CODEGEN": false,
-    "FIDELITY": false,
+    "SPEC": true,
+    "IR": true,
+    "CODEGEN": true,
+    "FIDELITY": true,
     "GATE": false,
     "DONE": false
   },
@@ -64,6 +313,16 @@
     "frameManifest": "artifacts/figma/frame-manifest.json",
     "layoutIrDir": "artifacts/ir/layout",
     "visualIr": "artifacts/ir/visual-ir.json",
-    "gateReport": null
-  }
+    "gateReport": "artifacts/gates/cells4/gate-report.json"
+  },
+  "gateLegs": [
+    "pixel",
+    "geom",
+    "text",
+    "icons",
+    "cells",
+    "layout",
+    "data",
+    "impl"
+  ]
 }

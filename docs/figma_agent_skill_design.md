@@ -406,12 +406,29 @@ DECISION 完成时**尚无**完整 app-spec；`completed.DECISION=true` 的判�
   bounds: { x: number, y: number, width: number, height: number },
   tree: object,                // 完整子树；节点含 id/type/bounds/fills?/strokes?/text?/children?
   texts: Array<{ nodeId: string, characters: string, style?: object, bounds: object }>,
-  icons: Array<{ nodeId: string, exportable: boolean }>,
-  controls?: Array<{ nodeId: string, role: string, bounds: object }>
+  icons: Array<{
+    nodeId: string,
+    exportable: boolean,
+    bounds: object,            // 槽盒，供图标腿盒配对
+    color?: string,            // 槽绘制色（见图标腿比色）
+    symbol: {
+      source: "figma-name" | "glyph-match" | "unresolved",
+      name?: string,           // source!=unresolved 时必填
+      role: "brand-mark" | "nav-item" | "leading" | "trailing" | "standalone"
+    }
+  }>,
+  controls?: Array<{ nodeId: string, role: string, bounds: object }>,
+  cells?: Array<{
+    nodeId: string,
+    role: "frame" | "grid-head" | "grid-cell" | "legend-swatch" | "badge" | "toggle-track" | "toggle-pill",
+    bounds: object,            // 槽盒，供单元格腿盒配对（跟随游标的槽只取尺寸）
+    fill?: string,             // 槽绘制底色；写屏据此取色，禁止在页面侧写字面量
+    sample?: boolean           // 活数据样本（格内 chip、滑块）：只供尺寸/底色，不作盒断言
+  }>
 }
 ```
 
-**硬约束**：`spec.screens[]` 中每个 `included` 业务屏（非纯 chrome 可配置）必须存在对应 Layout IR 文件，否则 IR 阶段 FAIL。
+**硬约束**：`spec.screens[]` 中每个 `included` 业务屏（非纯 chrome 可配置）必须存在对应 Layout IR 文件，否则 IR 阶段 FAIL。`icons[]` 必须覆盖全部可见图标槽（`node scripts/ir-icons.mjs` 自检），无法命名的槽记 `symbol.source="unresolved"`，由图标腿报 `GATE_ICON_UNRESOLVED`。`cells[]` 必须覆盖该屏画出的每个非数据矩形（`node scripts/ir-cells.mjs` 自检），否则该矩形不被任何腿断言——日历/网格整片刷白也能全绿。
 
 ### Visual IR — `artifacts/ir/visual-ir.json`
 
@@ -433,17 +450,25 @@ DECISION 完成时**尚无**完整 app-spec；`completed.DECISION=true` 的判�
   runStamp: string,
   overall: "PASS" | "FAIL",
   legs: {
-    pixel: { status: "PASS" | "FAIL", failures: Failure[] },
-    geom:  { status: "PASS" | "FAIL", failures: Failure[] },
-    text:  { status: "PASS" | "FAIL", failures: Failure[] },
-    data:  { status: "PASS" | "FAIL", failures: Failure[] }
+    pixel:  { status: "PASS" | "FAIL", failures: Failure[] },
+    geom:   { status: "PASS" | "FAIL", failures: Failure[] },
+    text:   { status: "PASS" | "FAIL", failures: Failure[] },
+    icons:  { status: "PASS" | "FAIL", failures: Failure[] },
+    cells:  { status: "PASS" | "FAIL", failures: Failure[] },
+    layout: { status: "PASS" | "FAIL", failures: Failure[] },
+    data:   { status: "PASS" | "FAIL", failures: Failure[] },
+    impl:   { status: "PASS" | "FAIL", failures: Failure[] }
   },
   runtime: { webOk: boolean, apiOk: boolean }
 }
 // Failure = { code: string, screenId?: string, path?: string, message: string, evidence?: string }
 ```
 
-合成规则：**四门 AND** + `runtime.webOk && runtime.apiOk` → `overall=PASS`；任一门 FAIL 或 runtime 失败 → `overall=FAIL`。不允许配置「跳过某门」除非 `pipeline-state` 显式记录用户批准的 `skipLegs`（默认空；试点若缺 chart/table 能力见「能力缺口」）。
+合成规则：**所有腿 AND**（以 `legs` 实际键为准）+ `runtime.webOk && runtime.apiOk` → `overall=PASS`；任一门 FAIL 或 runtime 失败 → `overall=FAIL`。不允许配置「跳过某门」除非 `pipeline-state` 显式记录用户批准的 `skipLegs`（默认空；试点若缺 chart/table 能力见「能力缺口」）。
+
+`icons` 腿（`GATE_ICON_*`）验 IR 图标槽 ↔ DOM `[data-ir-icon]`；`layout` 腿（`GATE_LAYOUT_*`）在 `GATE_WIDE_SCALE` 加宽视口复测 `data-ir-fluid` 容器是否跟随主区。两者补上了「采集视口固定」带来的结构性盲区。
+
+`cells` 腿（`GATE_CELL_*`）验 IR `cells[]` 画出来的矩形 ↔ DOM `[data-ir-cell]`：静态槽（外框/表头/数据格/图例色块/开关轨）盒与底色逐个断言，跟随游标的槽（今日徽标）只断言尺寸与底色，`sample: true` 的活数据样本只供尺寸/底色。补的是「不是控件、不是图标、没有文案」的第三类盲区——日历/网格整片刷白在像素/几何/文本/图标四腿下全绿。反向由 `impl` 腿的 `GATE_IMPL_MASK_ON_CELL` 守：`data-ir-live` 只许圈值、不许盖盒。
 
 ---
 
@@ -475,7 +500,7 @@ Fidelity 写屏粒度：**按 `screenId` 增量**；每屏完成在 `artifacts/i
 | SPEC | IR | needsReview=false；jwt 种子硬条件满足 |
 | IR | CODEGEN | 全纳入屏 IR 齐 |
 | CODEGEN | FIDELITY | 骨架可编译 |
-| FIDELITY | GATE | 纳入屏 fidelity-progress 全 done |
+| FIDELITY | GATE | 纳入屏 fidelity-progress 全 done，且 Fidelity 出口自检通过（IR 几何落地 + chrome 文案；见 screen-layout-from-ir / figma-fidelity） |
 | GATE | DONE | overall=PASS |
 | GATE | REPAIR | overall=FAIL |
 | REPAIR | GATE | 用户同意继续 **或** round 未达 maxRounds 且默认续跑「先再跑一轮 GATE」 |
@@ -563,7 +588,7 @@ Fidelity 写屏粒度：**按 `screenId` 增量**；每屏完成在 `artifacts/i
 
 - **加载 Skill**：`screen-layout-from-ir`、`token-binding`、`modal-fidelity`。
 - **硬约束**：只消费生成物与 IR；组件库 = `stack.ui`。
-- **完成判据**：`fidelity-progress` 覆盖所有纳入业务屏。
+- **完成判据**：`fidelity-progress` 覆盖所有纳入业务屏且 done；每屏满足几何/文案自检（禁止仅接线本文案）。
 
 ### 7. `figma-gate`
 
@@ -640,15 +665,19 @@ Fidelity 写屏粒度：**按 `screenId` 增量**；每屏完成在 `artifacts/i
 14. **screen-layout-from-ir**
     - 输入：Layout IR + 空壳页路径
     - 输出：写实后的页面实现；更新 fidelity-progress
-    - 判据：几何/结构来自 IR 字段路径，不手编业务文案
+    - 判据：几何/结构来自 IR 字段路径，不手编业务文案；图标槽与单元格槽逐槽
 15. **token-binding**
     - 输入：visual-ir.tokens
     - 输出：生成 token 样式文件（落在 webDir）
     - 判据：禁止兜底硬编码色值
+15a. **viewport-fit**
+    - 输入：Layout IR 主区/壳层盒 + `GATE_WIDE_SCALE`
+    - 输出：流式壳层（块级容器带 `data-ir-fluid`，主区 flex 吃余量）
+    - 判据：无整页 scale；三条不变式（IR 视口回归 / 内距守恒 / 内容随容器增长）+ 容器装得下内容
 16. **modal-fidelity**
     - 输入：visual-ir.modals + 对应 Layout IR
     - 输出：弹窗写实
-    - 判据：无 modal IR 不写该弹窗
+    - 判据：无 modal IR 不写该弹窗；白卡尺寸与内部控件按 IR bounds
 
 ### 闸门
 
@@ -656,10 +685,13 @@ Fidelity 写屏粒度：**按 `screenId` 增量**；每屏完成在 `artifacts/i
 18. **gate-geom**
 19. **gate-text**
 20. **gate-data**
+21. **gate-icon** — IR `icons[]` 槽（bounds/color/symbol）↔ DOM `[data-ir-icon]`；未解析符号 `GATE_ICON_UNRESOLVED`
+22. **gate-cells** — IR `cells[]` 画出来的矩形（外框/表头/数据格/图例色块/今日徽标/开关轨）↔ DOM `[data-ir-cell]`；静态槽盒与底色逐个断言，跟随游标的槽只断言尺寸与底色，`sample: true` 只供尺寸/底色
+23. **gate-layout** — 加宽视口复测 `data-ir-fluid` 是否跟随主区，以及容器内内容是否随容器增长、容器是否装得下内容
 
 ### 修复
 
-21. **repair-from-report**
+24. **repair-from-report**
     - 输入：gate-report.failures[]
     - 输出：修补记录 `artifacts/gates/<runStamp>/repair-log.json` + 代码改动
     - 判据：每条处理记录含 `code` 与落点 path；禁止按屏名散文指令

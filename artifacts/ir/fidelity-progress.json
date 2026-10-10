@@ -1,4 +1,151 @@
 {
   "schemaVersion": 1,
-  "screens": []
+  "updatedAt": "2026-10-09T10:20:00+08:00",
+  "notes": "REPAIR round: schedules calendar reworked against Layout IR (cells[] chrome: frame/grid-head/grid-cell fills/legend swatches/today badge/toggle track) + current-month seed backfill. Self-check now mirrors the gate legs in force, including the new cells leg, so done cannot be claimed while a leg in force would fail.",
+  "screens": [
+    {
+      "screenId": "home",
+      "done": true,
+      "selfCheck": {
+        "irPresent": true,
+        "geomRoleCount": 0,
+        "absoluteBoxes": true,
+        "iconSlotsRendered": true,
+        "iconSlotsSymboled": true,
+        "fluidMarked": true,
+        "liveDataWired": true,
+        "chromeTexts": true,
+        "notes": "No geom roles after KPI remap; KPI/metric/chart panels locked to IR bounds. No IR cells[] on this screen; cells leg skips it.",
+        "cellsDrawn": true
+      }
+    },
+    {
+      "screenId": "organization",
+      "done": true,
+      "selfCheck": {
+        "irPresent": true,
+        "geomRoleCount": 7,
+        "absoluteBoxes": true,
+        "iconSlotsRendered": true,
+        "iconSlotsSymboled": true,
+        "fluidMarked": true,
+        "liveDataWired": true,
+        "chromeTexts": true,
+        "notes": "button-primary + 5 input + textarea absolute; logout is non-button to avoid geom pollution. No IR cells[] on this screen; cells leg skips it.",
+        "cellsDrawn": true
+      }
+    },
+    {
+      "screenId": "departments",
+      "done": true,
+      "selfCheck": {
+        "irPresent": true,
+        "geomRoleCount": 1,
+        "absoluteBoxes": true,
+        "iconSlotsRendered": true,
+        "iconSlotsSymboled": true,
+        "fluidMarked": true,
+        "liveDataWired": true,
+        "chromeTexts": true,
+        "notes": "create button-primary absolute; row actions are spans not ant-btn. No IR cells[] on this screen; cells leg skips it.",
+        "cellsDrawn": true
+      }
+    },
+    {
+      "screenId": "doctors",
+      "done": true,
+      "selfCheck": {
+        "irPresent": true,
+        "geomRoleCount": 3,
+        "absoluteBoxes": true,
+        "iconSlotsRendered": true,
+        "iconSlotsSymboled": true,
+        "fluidMarked": true,
+        "liveDataWired": true,
+        "chromeTexts": true,
+        "notes": "create button + search input + dept select (IR role input) absolute. No IR cells[] on this screen; cells leg skips it.",
+        "cellsDrawn": true
+      }
+    },
+    {
+      "screenId": "schedules",
+      "done": true,
+      "selfCheck": {
+        "irPresent": true,
+        "geomRoleCount": 4,
+        "absoluteBoxes": true,
+        "iconSlotsRendered": true,
+        "iconSlotsSymboled": true,
+        "fluidMarked": true,
+        "liveDataWired": true,
+        "chromeTexts": true,
+        "notes": "2 filter selects + batch/create buttons; month/today/view toggles are non-geom spans. Calendar chrome drawn from IR cells[]: 57 non-sample boxes (frame, 7 grid-head, 42 grid-cell with per-column fills, 5 legend-swatch, 1 today badge, 1 toggle-track) plus sample grid-chip/toggle-pill; box sizes, row heights and paints all read from IR, no literal palette in CSS.",
+        "cellsDrawn": true
+      }
+    },
+    {
+      "screenId": "department-create",
+      "done": true,
+      "selfCheck": {
+        "irPresent": true,
+        "geomRoleCount": 6,
+        "absoluteBoxes": true,
+        "iconSlotsRendered": true,
+        "iconSlotsSymboled": true,
+        "fluidMarked": false,
+        "liveDataWired": true,
+        "cardSizeLocked": true,
+        "notes": "modal-card 520x493; controls relative to card; modal pinned at viewport 0,0 for capture. No IR cells[] on this screen; cells leg skips it.",
+        "cellsDrawn": true
+      }
+    },
+    {
+      "screenId": "doctor-create",
+      "done": true,
+      "selfCheck": {
+        "irPresent": true,
+        "geomRoleCount": 10,
+        "absoluteBoxes": true,
+        "iconSlotsRendered": true,
+        "iconSlotsSymboled": true,
+        "fluidMarked": false,
+        "liveDataWired": true,
+        "cardSizeLocked": true,
+        "notes": "modal-card 520x717; 7 input + textarea + 2 buttons. No IR cells[] on this screen; cells leg skips it.",
+        "cellsDrawn": true
+      }
+    },
+    {
+      "screenId": "schedule-create",
+      "done": true,
+      "selfCheck": {
+        "irPresent": true,
+        "geomRoleCount": 8,
+        "absoluteBoxes": true,
+        "iconSlotsRendered": true,
+        "iconSlotsSymboled": true,
+        "fluidMarked": false,
+        "liveDataWired": true,
+        "cardSizeLocked": true,
+        "notes": "modal-card 520x489; 6 fields + 2 buttons; no height=card-110 hack. No IR cells[] on this screen; cells leg skips it.",
+        "cellsDrawn": true
+      }
+    },
+    {
+      "screenId": "schedule-batch",
+      "done": true,
+      "selfCheck": {
+        "irPresent": true,
+        "geomRoleCount": 9,
+        "absoluteBoxes": true,
+        "iconSlotsRendered": true,
+        "iconSlotsSymboled": true,
+        "fluidMarked": false,
+        "liveDataWired": true,
+        "cardSizeLocked": true,
+        "notes": "modal-card 520x726 (not root 739); weekdays are chips not checkbox inputs. No IR cells[] on this screen; cells leg skips it.",
+        "cellsDrawn": true
+      }
+    }
+  ]
 }

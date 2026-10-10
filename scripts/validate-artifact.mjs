@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { readFileSync, existsSync } from "node:fs";
+import { readFileSync, existsSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 import Ajv2020 from "ajv/dist/2020.js";
 import addFormats from "ajv-formats";
@@ -43,6 +43,16 @@ const map = {
     schema: "schemas/visual-ir.schema.json",
     file: "artifacts/ir/visual-ir.json",
   },
+  "layout-ir": {
+    schema: "schemas/layout-ir.schema.json",
+    // one file per screen: without an explicit path, validate every screen
+    file: null,
+    dir: "artifacts/ir/layout",
+  },
+  "fidelity-progress": {
+    schema: "schemas/fidelity-progress.schema.json",
+    file: "artifacts/ir/fidelity-progress.json",
+  },
   "gate-report": {
     schema: "schemas/gate-report.schema.json",
     file: null,
@@ -56,6 +66,48 @@ if (!entry) {
 }
 
 const fileArg = process.argv[3];
+const schema = JSON.parse(readFileSync(join(repoRoot(), entry.schema), "utf8"));
+const ajv = new Ajv2020({ allErrors: true, strict: false });
+addFormats(ajv);
+if (kind === "app-spec") {
+  ajv.addSchema(
+    JSON.parse(readFileSync(join(repoRoot(), "schemas/decision.schema.json"), "utf8"))
+  );
+}
+const validate = ajv.compile(schema);
+
+function runExtra(data) {
+  if (!entry.extra) return null;
+  return entry.extra(data);
+}
+
+/** Kinds stored as one file per screen (no entry.file): validate them all. */
+if (!entry.file && !fileArg && entry.dir) {
+  const dir = join(repoRoot(), entry.dir);
+  if (!existsSync(dir)) {
+    console.error(JSON.stringify({ ok: false, error: `missing dir ${dir}` }));
+    process.exit(1);
+  }
+  const files = readdirSync(dir).filter((f) => f.endsWith(".json")).sort();
+  const errors = [];
+  for (const f of files) {
+    const p = join(dir, f);
+    const data = JSON.parse(readFileSync(p, "utf8"));
+    if (!validate(data)) {
+      errors.push({ file: f, errors: validate.errors });
+      continue;
+    }
+    const err = runExtra(data);
+    if (err) errors.push({ file: f, error: err });
+  }
+  if (errors.length) {
+    console.error(JSON.stringify({ ok: false, errors }, null, 2));
+    process.exit(1);
+  }
+  console.log(JSON.stringify({ ok: true, dir, files: files.length }));
+  process.exit(0);
+}
+
 const filePath = join(repoRoot(), fileArg || entry.file);
 if (!entry.file && !fileArg) {
   console.error("gate-report requires explicit file path");
@@ -66,26 +118,15 @@ if (!existsSync(filePath)) {
   process.exit(1);
 }
 
-const schema = JSON.parse(readFileSync(join(repoRoot(), entry.schema), "utf8"));
 const data = JSON.parse(readFileSync(filePath, "utf8"));
-const ajv = new Ajv2020({ allErrors: true, strict: false });
-addFormats(ajv);
-if (kind === "app-spec") {
-  ajv.addSchema(
-    JSON.parse(readFileSync(join(repoRoot(), "schemas/decision.schema.json"), "utf8"))
-  );
-}
-const validate = ajv.compile(schema);
 const ok = validate(data);
 if (!ok) {
   console.error(JSON.stringify({ ok: false, errors: validate.errors }, null, 2));
   process.exit(1);
 }
-if (entry.extra) {
-  const err = entry.extra(data);
-  if (err) {
-    console.error(JSON.stringify({ ok: false, error: err }));
-    process.exit(1);
-  }
+const extraErr = runExtra(data);
+if (extraErr) {
+  console.error(JSON.stringify({ ok: false, error: extraErr }));
+  process.exit(1);
 }
 console.log(JSON.stringify({ ok: true, file: filePath }));

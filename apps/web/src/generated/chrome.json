@@ -1,0 +1,135 @@
+{
+  "schemaVersion": 1,
+  "source": "artifacts/ir/visual-ir.json",
+  "chrome": {
+    "sidebar": {
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "width": 220,
+        "height": 1068
+      },
+      "width": 220,
+      "background": "#ffffff",
+      "items": [
+        {
+          "label": "首页",
+          "bounds": {
+            "x": 57,
+            "y": 83.8,
+            "width": 30,
+            "height": 21
+          },
+          "nodeId": "I281:3138;280:2023;157:4534"
+        },
+        {
+          "label": "机构信息",
+          "bounds": {
+            "x": 57,
+            "y": 127.8,
+            "width": 60,
+            "height": 21
+          },
+          "nodeId": "I281:3138;280:2023;157:4536"
+        },
+        {
+          "label": "科室管理",
+          "bounds": {
+            "x": 57,
+            "y": 171.8,
+            "width": 60,
+            "height": 21
+          },
+          "nodeId": "I281:3138;280:2023;157:4538"
+        },
+        {
+          "label": "医生管理",
+          "bounds": {
+            "x": 57,
+            "y": 215.8,
+            "width": 60,
+            "height": 21
+          },
+          "nodeId": "I281:3138;280:2023;157:4540"
+        },
+        {
+          "label": "排班管理",
+          "bounds": {
+            "x": 57,
+            "y": 259.8,
+            "width": 60,
+            "height": 21
+          },
+          "nodeId": "I281:3138;280:2023;157:4542"
+        },
+        {
+          "label": "预约记录",
+          "bounds": {
+            "x": 57,
+            "y": 303.8,
+            "width": 60,
+            "height": 21
+          },
+          "nodeId": "I281:3138;280:2023;157:4544"
+        },
+        {
+          "label": "患者管理",
+          "bounds": {
+            "x": 57,
+            "y": 347.8,
+            "width": 60,
+            "height": 21
+          },
+          "nodeId": "I281:3138;280:2023;157:4548"
+        },
+        {
+          "label": "订单管理",
+          "bounds": {
+            "x": 57,
+            "y": 391.8,
+            "width": 60,
+            "height": 21
+          },
+          "nodeId": "I281:3138;280:2023;157:4550"
+        },
+        {
+          "label": "评价管理",
+          "bounds": {
+            "x": 57,
+            "y": 435.8,
+            "width": 60,
+            "height": 21
+          },
+          "nodeId": "I281:3138;280:2023;157:4552"
+        }
+      ]
+    },
+    "header": {
+      "height": 52,
+      "bounds": {
+        "x": 220,
+        "y": 0,
+        "width": 1220,
+        "height": 52
+      }
+    }
+  },
+  "tokens": {
+    "font.family": "Noto Sans SC",
+    "color.bg.page": "#f5f7fa",
+    "color.bg.sidebar": "#ffffff",
+    "color.border": "#f0f0f0",
+    "color.primary": "#1890ff",
+    "color.text.title": "#262626",
+    "color.text.body": "#262626",
+    "color.text.secondary": "#595959",
+    "color.text.tertiary": "#8c8c8c",
+    "color.text.placeholder": "#bfbfbf",
+    "color.danger": "#ff4d4f",
+    "color.bg.content": "#ffffff",
+    "space.sidebar.width": 220,
+    "space.header.height": 52,
+    "radius.card": 8,
+    "radius.control": 6
+  }
+}

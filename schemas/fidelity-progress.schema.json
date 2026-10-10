@@ -1,0 +1,89 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://figma-web.local/schemas/fidelity-progress.schema.json",
+  "title": "FidelityProgress",
+  "description": "Per-screen FIDELITY self-report. The self-check booleans mirror the dimensions the GATE legs assert, so a screen cannot be marked done while a leg that is already in force would fail it. A screen marked done with any of the required booleans false (or missing) is a lying exit.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "screens"],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "updatedAt": { "type": "string" },
+    "notes": { "type": "string" },
+    "screens": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["screenId", "done", "selfCheck"],
+        "properties": {
+          "screenId": { "type": "string", "minLength": 1 },
+          "done": { "type": "boolean" },
+          "selfCheck": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["irPresent"],
+            "properties": {
+              "irPresent": {
+                "type": "boolean",
+                "description": "Layout IR exists for this screen (write-screen precondition)."
+              },
+              "absoluteBoxes": {
+                "type": "boolean",
+                "description": "Geometry is placed at absolute IR bounds, not re-derived from flow."
+              },
+              "iconSlotsRendered": {
+                "type": "boolean",
+                "description": "Every non-live IR icon slot has a DOM element (gate-icon box pairing)."
+              },
+              "iconSlotsSymboled": {
+                "type": "boolean",
+                "description": "No slot is still symbol.source=unresolved (gate-icon GATE_ICON_UNRESOLVED)."
+              },
+              "fluidMarked": {
+                "type": "boolean",
+                "description": "Pages: block containers carry data-ir-fluid and follow the main area (gate-layout). Modals may record false."
+              },
+              "cellsDrawn": {
+                "type": "boolean",
+                "description": "Every non-sample IR cells[] box is drawn with its IR box and paint (gate-cells); true also when the IR declares no cells (same convention as iconSlotsSymboled on an icon-free screen). A screen that paints calendar/grid chrome must verify this — an unasserted rectangle is exactly the shape that degrades while pixel/geom/text/icon legs all pass."
+              },
+              "liveDataWired": {
+                "type": "boolean",
+                "description": "Live regions are marked and backfilled from the API (gate-data)."
+              },
+              "cardSizeLocked": {
+                "type": "boolean",
+                "description": "Modals: the white card box matches the IR modal-card bounds (gate-geom)."
+              },
+              "geomRoleCount": { "type": "integer", "minimum": 0 },
+              "chromeTexts": { "type": "boolean" },
+              "notes": { "type": "string" }
+            }
+          }
+        },
+        "allOf": [
+          {
+            "if": { "properties": { "done": { "const": true } }, "required": ["done"] },
+            "then": {
+              "properties": {
+                "selfCheck": {
+                  "required": [
+                    "irPresent",
+                    "absoluteBoxes",
+                    "iconSlotsRendered",
+                    "iconSlotsSymboled",
+                    "fluidMarked",
+                    "cellsDrawn",
+                    "liveDataWired"
+                  ]
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}
