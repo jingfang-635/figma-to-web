@@ -3,6 +3,7 @@ import { Button, InputNumber, Select, message } from 'antd'
 import dayjs from 'dayjs'
 import { apiFetch } from '../api/client'
 import { IrIconSlot } from '../components/IrIconSlot'
+import { IrModalReqMarks } from '../components/IrModalReqMarks'
 import { IrModalShell } from '../components/IrModalShell'
 import { IrText } from '../components/IrText'
 import {
@@ -304,12 +305,8 @@ export function ScheduleBatchModal({
         />
       ) : null}
 
-      {labels.template ? (
-        <div className="form-label-abs" style={boxStyle(labels.template.bounds)}>
-          {labels.template.characters}
-          <span className="req">*</span>
-        </div>
-      ) : null}
+      {labels.template ? <IrText node={labels.template} variant="modal" /> : null}
+      <IrModalReqMarks texts={texts} />
       {inputs[0] ? (
         <div
           className="ir-control-host ir-control-host--slot-arrow"
@@ -330,12 +327,7 @@ export function ScheduleBatchModal({
         />
       ) : null}
 
-      {labels.doctor ? (
-        <div className="form-label-abs" style={boxStyle(labels.doctor.bounds)}>
-          {labels.doctor.characters}
-          <span className="req">*</span>
-        </div>
-      ) : null}
+      {labels.doctor ? <IrText node={labels.doctor} variant="modal" /> : null}
       {inputs[1] ? (
         <div
           className="ir-control-host ir-control-host--slot-arrow"
@@ -384,12 +376,7 @@ export function ScheduleBatchModal({
         />
       ) : null}
 
-      {labels.dates ? (
-        <div className="form-label-abs" style={boxStyle(labels.dates.bounds)}>
-          {labels.dates.characters}
-          <span className="req">*</span>
-        </div>
-      ) : null}
+      {labels.dates ? <IrText node={labels.dates} variant="modal" /> : null}
       {weekdayLabels.map((w) => {
         const on = weekdays.includes(w.value)
         if (!w.chip || !w.node) return null
@@ -412,10 +399,7 @@ export function ScheduleBatchModal({
       })}
 
       {labels.weekRange ? (
-        <div className="form-label-abs" style={boxStyle(labels.weekRange.bounds)}>
-          {labels.weekRange.characters}
-          <span className="req">*</span>
-        </div>
+        <IrText node={labels.weekRange} variant="modal" />
       ) : null}
       {inputs[3] ? (
         <div className="ir-control-host" style={boxStyle(inputs[3].bounds)}>
@@ -444,12 +428,7 @@ export function ScheduleBatchModal({
         </div>
       ) : null}
 
-      {labels.period ? (
-        <div className="form-label-abs" style={boxStyle(labels.period.bounds)}>
-          {labels.period.characters}
-          <span className="req">*</span>
-        </div>
-      ) : null}
+      {labels.period ? <IrText node={labels.period} variant="modal" /> : null}
       {inputs[4] ? (
         <div className="ir-control-host" style={boxStyle(inputs[4].bounds)}>
           <Select
@@ -463,12 +442,7 @@ export function ScheduleBatchModal({
         </div>
       ) : null}
 
-      {labels.quota ? (
-        <div className="form-label-abs" style={boxStyle(labels.quota.bounds)}>
-          {labels.quota.characters}
-          <span className="req">*</span>
-        </div>
-      ) : null}
+      {labels.quota ? <IrText node={labels.quota} variant="modal" /> : null}
       {inputs[5] ? (
         <div className="ir-control-host" style={boxStyle(inputs[5].bounds)}>
           <InputNumber
@@ -480,11 +454,7 @@ export function ScheduleBatchModal({
         </div>
       ) : null}
 
-      {labels.status ? (
-        <div className="form-label-abs" style={boxStyle(labels.status.bounds)}>
-          {labels.status.characters}
-        </div>
-      ) : null}
+      {labels.status ? <IrText node={labels.status} variant="modal" /> : null}
       {inputs[6] ? (
         <div className="ir-control-host" style={boxStyle(inputs[6].bounds)}>
           <Select

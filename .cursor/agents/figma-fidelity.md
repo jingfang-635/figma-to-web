@@ -35,6 +35,7 @@ description: >-
 1. `fidelity-progress` 覆盖所有纳入业务屏（含 modal）且均为 `done: true`，且通过 `node scripts/validate-artifact.mjs fidelity-progress`。
    - 每屏 `selfCheck` 必须逐项作答并诚实：`irPresent` / `absoluteBoxes` / `iconSlotsRendered` / `iconSlotsSymboled` / `fluidMarked` / `cellsDrawn` / `liveDataWired`（modal 另加 `cardSizeLocked`）。这些布尔正是后面各腿（geom/text/icons/cells/layout/data/impl）会去量的维度——填 true 却又被腿判 FAIL，就是「谎报完成」。
 2. 抽检至少一页一弹：IR bounds 锁定 + 对照参考图无「一眼假」（缺图标/错图表类型/antd 黑表头等）。
+   弹窗抽检必看：必填 label **单行**、`*` 与 IR 独立 TEXT 对齐（见 `modal-fidelity`「表单 label 与必填星号」）。
 3. 已实现方案 C 流式壳层占满（见 `viewport-fit`）；无整页 contain/cover scale。
 4. `visual-ir.chrome` 导航文案均在运行 DOM 中可见（策略 B 经批准除外）；图标槽已填且无 `unresolved`。
 5. 图表类型与原型一致，或已记 `FIDELITY_CHART_UNSUPPORTED` / 批准 skip。

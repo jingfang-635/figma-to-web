@@ -456,15 +456,9 @@ select.ir-native-input--slot-arrow {
   color: var(--color-text-tertiary);
 }
 
-.form-label-abs {
-  color: var(--color-text-body);
-  display: flex;
-  align-items: center;
-  gap: 2px;
-  justify-content: flex-end;
-}
-
-.form-label-abs .req {
+/* Modal labels use IrText (IR box + nowrap). Required marks are separate IR
+   text nodes rendered by IrModalReqMarks — never nest "*" inside the label box. */
+.form-label-req {
   color: var(--color-danger);
 }
 

@@ -4,6 +4,7 @@ description: >-
   按 visual-ir.modals 与对应 Layout IR 写实弹窗。无 modal IR 不写该弹窗。
   白卡外尺寸与内部控件必须按 IR bounds，禁止默认弹窗尺寸糊弄。
   弹窗坐标系与显示锚点（居中=声明约定，非 Figma 事实）也归本 skill。
+  表单 label 与必填星号是独立 TEXT 节点，禁止把星号塞进 label 盒。
 ---
 
 # modal-fidelity
@@ -65,11 +66,35 @@ description: >-
 - placeholder 类文案须出现在可采集 DOM（或等价可访问名），避免 `GATE_TEXT_CONTENT`。
 - 无对应 modal Layout IR → 不写该弹窗，并在可追溯产物中记录缺 IR。
 
+## 表单 label 与必填星号（强制 · 唯一正文）
+
+> **事故**：弹窗 label 在运行态折成两行（「四字标签上下叠字」），星号贴在第一行右侧；
+> 像素腿仍可 PASS。根因是把必填 `*` **嵌进** label 的 IR 文本盒：label `bounds` 是
+> **字面量紧盒**（宽≈字宽、高≈一行），再塞 `*` + flex gap 必然溢出折行。原型里 `*` 是
+> **独立 TEXT 节点**（与 label 同排、x 落在控件列左缘内侧的固定竖线），不是 label 的子节点。
+
+强制：
+
+- **Label**：每个标签用 `IrText`（`variant="modal"`）按该节点 `bounds` + `style` 落位；
+  `modalTextStyle` 已带 `whiteSpace: nowrap`——不得再包一层把 `*` 塞进同一盒。
+- **必填星号**：`texts` 里 `characters === '*'` 的节点**逐个**按自身 bounds 落位
+  （共享渲染入口如 `IrModalReqMarks`）；色用 token（如 `--color-danger`），不手编十六进制。
+- **禁止**：
+  - 在 label 盒内手写 `<span>*</span>` / 组件库 `required` 冒号位冒充星号；
+  - 用「label 宽 + 自造 gap」拼出星号位置——间距以 IR 两节点 `bounds` 为准；
+  - 把流式页（栅格 label 列）的写法原样搬到弹窗绝对定位表单而不读独立 `*` 节点。
+- **自检口诀**：打开弹窗，每个必填 label 必须**单行**；所有 `*` 的左缘应落在同一竖线
+  （IR 里它们的 `bounds.x` 对齐）。折行 = 未按本条写，禁止 `done: true`。
+
+页面流式表单（非弹窗）的同类纪律见 `screen-layout-from-ir`（独立 `reqMark` + IR 间距）；
+原理表见 skill `figma-visual-fidelity`「文本级还原」。
+
 ## 标记 done 前自检
 
 1. 白卡外尺寸 vs IR modal-card（或根 bounds）在 `GATE_GEOM_TOL_PX` 内。
 2. geom 角色控件数一致；抽样盒在容差内。
 3. 标题与主要 label/placeholder 文本在 DOM 中可匹配。
+4. 必填 label **不折行**；IR 中每个 `*` 文本节点在 DOM 中有对应落位（见上一节）。
 
 失败则禁止 `done: true`。
 

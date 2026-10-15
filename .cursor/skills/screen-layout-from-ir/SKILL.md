@@ -44,6 +44,9 @@ description: >-
   逐像素正确，宽屏下字段却钉在原处、右侧留白带（`GATE_LAYOUT_INNER_STATIC` 的由来）。
 - 表单/详情类字段区：列宽用 `minmax(0, 1fr)` 吃增量，**只把 label 列宽与列间距钉成 IR 实测值**；
   整行字段用 `grid-column: 1 / -1` 让浏览器 stretch，不手算百分比。
+- **必填星号**：若 Layout IR 里 `*` 是独立 TEXT 节点，按该节点落位（或 label 旁用 IR 量出的
+  间距），**禁止**把 `*` 塞进 label 字面量紧盒导致折行。弹窗绝对定位表单的完整纪律见
+  `modal-fidelity`「表单 label 与必填星号」。
 - 固定宽控件（按钮等）不要作为某个 `1fr` 流式轨道的**唯一**子级（那会让整组内容不增长而被判失败）。
 - GATE：固定 IR 视口采集，并在 `GATE_WIDE_SCALE` 加宽视口复测一次。
 

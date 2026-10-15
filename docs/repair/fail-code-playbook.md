@@ -31,7 +31,7 @@ Repair 只按 **code** 与字段 **path** 行动，不按业务屏名散文指�
 | `GATE_LAYOUT_INNER_STATIC` | 容器跟随了，但容器里的内容没跟随 | 内容放进该容器内部参与布局流（`minmax(0,1fr)` 吃增量）；见 `viewport-fit` 不变式 3 | FIDELITY |
 | `GATE_LAYOUT_OVERFLOW` | 容器装不下自己的内容（行/翻页器越出卡片） | 容器高改 `height:auto` + `min-height` 取 IR 并由内容撑高；行高/表头高/分页大小取自 IR；翻页器贴卡片底边；确需内部滚动则显式加 `data-ir-scroll`（见 `viewport-fit` 不变式 4 / `screen-layout-from-ir` 表格契约） | FIDELITY |
 | `GATE_TEXT_CONTENT` | 文案不一致 | 若源在 Spec 字段 → SPEC；若 IR texts → 回填/写屏 | SPEC 或 FIDELITY |
-| `GATE_TEXT_STYLE` | 字号/字色盒偏差 | `token-binding` + 文本样式 | FIDELITY |
+| `GATE_TEXT_STYLE` | 字号/字色盒偏差 | `token-binding` + 文本样式；弹窗 label 折行 / 星号错位 → 查是否把 `*` 嵌进 label 紧盒（见 `modal-fidelity`「表单 label 与必填星号」） | FIDELITY |
 | `GATE_DATA_LOOP` | config↔API 闭环断 | 查路由/DTO/生成 API | CODEGEN |
 | `GATE_DATA_LIVE` | 活数据/关联为空 | seed、聚合、关联字段 | CODEGEN |
 | `GATE_DATA_STATS_GAP` | stats 未实现 | 补 `app-spec.stats` 闭环或批准 skipScreenIds | SPEC/CODEGEN |

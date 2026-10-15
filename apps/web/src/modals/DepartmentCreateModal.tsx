@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Button, Input, InputNumber, Select, message } from 'antd'
 import { apiFetch } from '../api/client'
 import { IrIconSlot } from '../components/IrIconSlot'
+import { IrModalReqMarks } from '../components/IrModalReqMarks'
 import { IrModalShell } from '../components/IrModalShell'
 import { IrText } from '../components/IrText'
 import { modalBoxStyle as boxStyle } from '../ir/geometry'
@@ -132,12 +133,8 @@ export function DepartmentCreateModal({
           onClick={onClose}
         />
       ) : null}
-      {labels.name ? (
-        <div className="form-label-abs" style={boxStyle(labels.name.bounds)}>
-          {labels.name.characters}
-          <span className="req">*</span>
-        </div>
-      ) : null}
+      {labels.name ? <IrText node={labels.name} variant="modal" /> : null}
+      <IrModalReqMarks texts={texts} />
       {inputs[0] ? (
         <div className="ir-control-host" style={boxStyle(inputs[0].bounds)}>
           <Input
@@ -148,12 +145,7 @@ export function DepartmentCreateModal({
         </div>
       ) : null}
 
-      {labels.icon ? (
-        <div className="form-label-abs" style={boxStyle(labels.icon.bounds)}>
-          {labels.icon.characters}
-          <span className="req">*</span>
-        </div>
-      ) : null}
+      {labels.icon ? <IrText node={labels.icon} variant="modal" /> : null}
       {upload ? (
         <div className="upload-box" style={boxStyle(upload.bounds)}>
           {labels.upload ? (
@@ -183,11 +175,7 @@ export function DepartmentCreateModal({
         onChange={() => undefined}
       />
 
-      {labels.desc ? (
-        <div className="form-label-abs" style={boxStyle(labels.desc.bounds)}>
-          {labels.desc.characters}
-        </div>
-      ) : null}
+      {labels.desc ? <IrText node={labels.desc} variant="modal" /> : null}
       {textarea ? (
         <div className="ir-control-host" style={boxStyle(textarea.bounds)}>
           <Input.TextArea
@@ -200,11 +188,7 @@ export function DepartmentCreateModal({
         </div>
       ) : null}
 
-      {labels.sort ? (
-        <div className="form-label-abs" style={boxStyle(labels.sort.bounds)}>
-          {labels.sort.characters}
-        </div>
-      ) : null}
+      {labels.sort ? <IrText node={labels.sort} variant="modal" /> : null}
       {inputs[1] ? (
         <div className="ir-control-host" style={boxStyle(inputs[1].bounds)}>
           <InputNumber
@@ -217,11 +201,7 @@ export function DepartmentCreateModal({
         </div>
       ) : null}
 
-      {labels.status ? (
-        <div className="form-label-abs" style={boxStyle(labels.status.bounds)}>
-          {labels.status.characters}
-        </div>
-      ) : null}
+      {labels.status ? <IrText node={labels.status} variant="modal" /> : null}
       {inputs[2] ? (
         <div className="ir-control-host" style={boxStyle(inputs[2].bounds)}>
           <Select

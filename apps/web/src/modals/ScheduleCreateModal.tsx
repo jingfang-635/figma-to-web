@@ -3,6 +3,7 @@ import { Button, DatePicker, Input, InputNumber, Select, message } from 'antd'
 import dayjs, { type Dayjs } from 'dayjs'
 import { apiFetch } from '../api/client'
 import { IrIconSlot } from '../components/IrIconSlot'
+import { IrModalReqMarks } from '../components/IrModalReqMarks'
 import { IrModalShell } from '../components/IrModalShell'
 import { IrText } from '../components/IrText'
 import { modalBoxStyle as boxStyle } from '../ir/geometry'
@@ -137,12 +138,8 @@ export function ScheduleCreateModal({
         />
       ) : null}
 
-      {labels.doctor ? (
-        <div className="form-label-abs" style={boxStyle(labels.doctor.bounds)}>
-          {labels.doctor.characters}
-          <span className="req">*</span>
-        </div>
-      ) : null}
+      {labels.doctor ? <IrText node={labels.doctor} variant="modal" /> : null}
+      <IrModalReqMarks texts={texts} />
       {inputs[0] ? (
         <div
           className="ir-control-host ir-control-host--slot-arrow"
@@ -164,12 +161,7 @@ export function ScheduleCreateModal({
         />
       ) : null}
 
-      {labels.date ? (
-        <div className="form-label-abs" style={boxStyle(labels.date.bounds)}>
-          {labels.date.characters}
-          <span className="req">*</span>
-        </div>
-      ) : null}
+      {labels.date ? <IrText node={labels.date} variant="modal" /> : null}
       {inputs[1] ? (
         <div className="ir-control-host" style={boxStyle(inputs[1].bounds)}>
           <DatePicker
@@ -180,12 +172,7 @@ export function ScheduleCreateModal({
         </div>
       ) : null}
 
-      {labels.period ? (
-        <div className="form-label-abs" style={boxStyle(labels.period.bounds)}>
-          {labels.period.characters}
-          <span className="req">*</span>
-        </div>
-      ) : null}
+      {labels.period ? <IrText node={labels.period} variant="modal" /> : null}
       {inputs[2] ? (
         <div className="ir-control-host" style={boxStyle(inputs[2].bounds)}>
           <Select
@@ -199,12 +186,7 @@ export function ScheduleCreateModal({
         </div>
       ) : null}
 
-      {labels.quota ? (
-        <div className="form-label-abs" style={boxStyle(labels.quota.bounds)}>
-          {labels.quota.characters}
-          <span className="req">*</span>
-        </div>
-      ) : null}
+      {labels.quota ? <IrText node={labels.quota} variant="modal" /> : null}
       {inputs[3] ? (
         <div className="ir-control-host" style={boxStyle(inputs[3].bounds)}>
           <InputNumber
@@ -229,11 +211,7 @@ export function ScheduleCreateModal({
         </div>
       ) : null}
 
-      {labels.status ? (
-        <div className="form-label-abs" style={boxStyle(labels.status.bounds)}>
-          {labels.status.characters}
-        </div>
-      ) : null}
+      {labels.status ? <IrText node={labels.status} variant="modal" /> : null}
       {inputs[4] ? (
         <div className="ir-control-host" style={boxStyle(inputs[4].bounds)}>
           <Select
@@ -248,11 +226,7 @@ export function ScheduleCreateModal({
         </div>
       ) : null}
 
-      {labels.remark ? (
-        <div className="form-label-abs" style={boxStyle(labels.remark.bounds)}>
-          {labels.remark.characters}
-        </div>
-      ) : null}
+      {labels.remark ? <IrText node={labels.remark} variant="modal" /> : null}
       {inputs[5] ? (
         <div className="ir-control-host" style={boxStyle(inputs[5].bounds)}>
           <Input

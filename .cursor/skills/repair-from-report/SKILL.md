@@ -23,7 +23,7 @@ description: >-
 | 码前缀/码 | 回退 |
 | --- | --- |
 | `GATE_PIXEL_DIFF` 且 message 含 `reference screenshot missing` | **INGEST / asset-export**（补 `imports/figma/screens/<screenId>.png`）后重 GATE |
-| 其它 `GATE_PIXEL_*` / `GATE_GEOM_*` / `GATE_TEXT_STYLE` / `GATE_TEXT_CONTENT` | FIDELITY（几何/文案/chrome；勿只改文案不改盒） |
+| 其它 `GATE_PIXEL_*` / `GATE_GEOM_*` / `GATE_TEXT_STYLE` / `GATE_TEXT_CONTENT` | FIDELITY（几何/文案/chrome；勿只改文案不改盒）。弹窗 label 折行 / 必填星号错位 → `modal-fidelity`「表单 label 与必填星号」（`*` 独立 TEXT，禁嵌 label 紧盒） |
 | `GATE_GEOM_MODAL` | FIDELITY + modal-fidelity |
 | `GATE_ICON_UNRESOLVED` | **IR**（layout-ir-extract：`figma-name` 或参考截图 `glyph-match`，补 `artifacts/ir/icon-symbols.json`）后重 GATE |
 | `GATE_ICON_MISSING` / `GATE_ICON_BOX` / `GATE_ICON_COLOR` | FIDELITY（按 IR 槽补渲染/定位/取色；弹窗槽见 modal-fidelity）。槽数与角色表不符则先回 IR |

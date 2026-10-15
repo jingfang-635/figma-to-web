@@ -26,6 +26,8 @@ description: >-
   - 短日期刻度（如 `M/D`、`YYYY-MM-DD`）
   - 明显为图表轴/点标注的短数值串
 - **仍必须匹配**：导航/品牌/标题/表头/表单 label/按钮文案/行内标签等非动态文案。
+- **必填星号**：IR 里 `characters === '*'` 的节点与 label 是**两条**文本；DOM 侧也须能配对到
+  独立落位（不得只嵌在 label 字符串里导致盒高翻倍、配对漂移）。写屏纪律见 `modal-fidelity`。
 - Chrome：默认渲染 `visual-ir.chrome` 全部 item 文案（策略 A）；策略 B 需书面批准并记入 `pipeline-state`。
 
 ## 弹窗屏坐标归一化

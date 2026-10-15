@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Button, Input, InputNumber, Select, message } from 'antd'
 import { apiFetch } from '../api/client'
 import { IrIconSlot } from '../components/IrIconSlot'
+import { IrModalReqMarks } from '../components/IrModalReqMarks'
 import { IrModalShell } from '../components/IrModalShell'
 import { IrText } from '../components/IrText'
 import { modalBoxStyle as boxStyle } from '../ir/geometry'
@@ -166,12 +167,8 @@ export function DoctorCreateModal({
       {labels.hint1 ? <IrText node={labels.hint1} variant="modal" /> : null}
       {labels.hint2 ? <IrText node={labels.hint2} variant="modal" /> : null}
 
-      {labels.name ? (
-        <div className="form-label-abs" style={boxStyle(labels.name.bounds)}>
-          {labels.name.characters}
-          <span className="req">*</span>
-        </div>
-      ) : null}
+      {labels.name ? <IrText node={labels.name} variant="modal" /> : null}
+      <IrModalReqMarks texts={texts} />
       {inputs[0] ? (
         <div className="ir-control-host" style={boxStyle(inputs[0].bounds)}>
           <Input
@@ -182,12 +179,7 @@ export function DoctorCreateModal({
         </div>
       ) : null}
 
-      {labels.title ? (
-        <div className="form-label-abs" style={boxStyle(labels.title.bounds)}>
-          {labels.title.characters}
-          <span className="req">*</span>
-        </div>
-      ) : null}
+      {labels.title ? <IrText node={labels.title} variant="modal" /> : null}
       {inputs[1] ? (
         <div className="ir-control-host" style={boxStyle(inputs[1].bounds)}>
           <Input
@@ -197,12 +189,7 @@ export function DoctorCreateModal({
         </div>
       ) : null}
 
-      {labels.dept ? (
-        <div className="form-label-abs" style={boxStyle(labels.dept.bounds)}>
-          {labels.dept.characters}
-          <span className="req">*</span>
-        </div>
-      ) : null}
+      {labels.dept ? <IrText node={labels.dept} variant="modal" /> : null}
       {inputs[2] ? (
         <div className="ir-control-host" style={boxStyle(inputs[2].bounds)}>
           <Select
@@ -213,12 +200,7 @@ export function DoctorCreateModal({
         </div>
       ) : null}
 
-      {labels.fee ? (
-        <div className="form-label-abs" style={boxStyle(labels.fee.bounds)}>
-          {labels.fee.characters}
-          <span className="req">*</span>
-        </div>
-      ) : null}
+      {labels.fee ? <IrText node={labels.fee} variant="modal" /> : null}
       {inputs[3] ? (
         <div className="ir-control-host" style={boxStyle(inputs[3].bounds)}>
           <InputNumber
@@ -229,11 +211,7 @@ export function DoctorCreateModal({
         </div>
       ) : null}
 
-      {labels.years ? (
-        <div className="form-label-abs" style={boxStyle(labels.years.bounds)}>
-          {labels.years.characters}
-        </div>
-      ) : null}
+      {labels.years ? <IrText node={labels.years} variant="modal" /> : null}
       {inputs[4] ? (
         <div className="ir-control-host" style={boxStyle(inputs[4].bounds)}>
           <InputNumber
@@ -246,11 +224,7 @@ export function DoctorCreateModal({
         </div>
       ) : null}
 
-      {labels.rating ? (
-        <div className="form-label-abs" style={boxStyle(labels.rating.bounds)}>
-          {labels.rating.characters}
-        </div>
-      ) : null}
+      {labels.rating ? <IrText node={labels.rating} variant="modal" /> : null}
       {inputs[5] ? (
         <div className="ir-control-host" style={boxStyle(inputs[5].bounds)}>
           <InputNumber
@@ -263,9 +237,7 @@ export function DoctorCreateModal({
       ) : null}
 
       {labels.specialty ? (
-        <div className="form-label-abs" style={boxStyle(labels.specialty.bounds)}>
-          {labels.specialty.characters}
-        </div>
+        <IrText node={labels.specialty} variant="modal" />
       ) : null}
       {textarea ? (
         <div className="ir-control-host" style={boxStyle(textarea.bounds)}>
@@ -279,11 +251,7 @@ export function DoctorCreateModal({
         </div>
       ) : null}
 
-      {labels.status ? (
-        <div className="form-label-abs" style={boxStyle(labels.status.bounds)}>
-          {labels.status.characters}
-        </div>
-      ) : null}
+      {labels.status ? <IrText node={labels.status} variant="modal" /> : null}
       {inputs[6] ? (
         <div className="ir-control-host" style={boxStyle(inputs[6].bounds)}>
           <Select
